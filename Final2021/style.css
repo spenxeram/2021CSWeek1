@@ -6,3 +6,16 @@ h1, h2, h3, nav li {
 p {
   font-family: 'Montserrat', sans-serif;
 }
+
+.jumbotron {
+  background: url("images/examplebanner.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+}
+
+footer {
+    background: #353535;
+    color: white;
+    padding: 10%;
+}
