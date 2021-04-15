@@ -6,3 +6,23 @@ h1, h2, h3, nav li {
 p {
   font-family: 'Montserrat', sans-serif;
 }
+
+img.card-img-top {
+    height: 200px;
+    object-fit: contain;
+    padding: 15px;
+}
+
+.jumbotron.jumbotron-fluid {
+  background-image: url(images/examplebanner.jpg) !important;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+}
+
+footer {
+    background: #272727;
+    color: white;
+    text-align: center;
+    padding: 10%;
+}
