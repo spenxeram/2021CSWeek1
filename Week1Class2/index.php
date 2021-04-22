@@ -57,3 +57,9 @@ function outputLangPass(lang) {
 
   </script>
 </html>
+
+<?php
+$hello = "Hello World";
+echo "I just want to say {$hello}";
+
+ ?>
