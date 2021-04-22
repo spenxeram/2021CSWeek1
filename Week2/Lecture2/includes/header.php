@@ -1,8 +1,8 @@
 <?php
-echo basename($_SERVER['SCRIPT_NAME'], ".php");
+$page_name = basename($_SERVER['SCRIPT_NAME'], ".php");
 $navLinks = ["home", "about", "contact"];
 
-function outputNav($navLinks) {
+function outputNav($navLinks, $page_name) {
   $output = "";
   foreach ($navLinks as $link ) {
     if($link == "home") {
@@ -10,7 +10,13 @@ function outputNav($navLinks) {
     } else {
       $href = $link;
     }
-    $output.= "<li><a href='{$href}.php'>". ucfirst($link) ."</a></li>";
+
+    if($href == $page_name) {
+      $theclass = "class='active'";
+    } else {
+      $theclass = '';
+    }
+    $output.= "<li><a href='{$href}.php' {$theclass}>". ucfirst($link) ."</a></li>";
   }
   echo $output;
 }
@@ -20,7 +26,7 @@ function outputNav($navLinks) {
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>SimpDesign | Home</title>
+    <title>SimpDesign | <?php if($page_name != "index") { echo ucfirst($page_name);} else {echo "Home";} ?></title>
     <style media="screen">
     *{
       font-family: sans-serif;
@@ -37,15 +43,21 @@ function outputNav($navLinks) {
     padding: 5px;
     color: white;
     }
+    .active {
+    font-family: impact;
+    color: #ffe4d0;
+    text-decoration: none;
+    }
     </style>
   </head>
   <body>
     <header>
+      <img src="https://cdn.tgdd.vn/Files/2021/04/18/1344430/y-nghia-thu-vi-va-nguon-goc-cua-tu-simp.png" width="50px" style="margin-top:10px;border-radius:50%;float:left; object-fit:cover; height:50px;" alt="">
       <h1>SimpDesign</h1>
       <nav>
         <ul>
           <?php
-            outputNav($navLinks);
+            outputNav($navLinks, $page_name);
            ?>
         </ul>
       </nav>
