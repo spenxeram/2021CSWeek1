@@ -1,5 +1,19 @@
 <?php
+echo basename($_SERVER['SCRIPT_NAME'], ".php");
+$navLinks = ["home", "about", "contact"];
 
+function outputNav($navLinks) {
+  $output = "";
+  foreach ($navLinks as $link ) {
+    if($link == "home") {
+      $href = "index";
+    } else {
+      $href = $link;
+    }
+    $output.= "<li><a href='{$href}.php'>". ucfirst($link) ."</a></li>";
+  }
+  echo $output;
+}
  ?>
 
 <!DOCTYPE html>
@@ -30,9 +44,9 @@
       <h1>SimpDesign</h1>
       <nav>
         <ul>
-          <li> <a href="index.php"></a>Home</li>
-          <li> <a href="about.php"></a>About</li>
-          <li> <a href="contact.php"></a>Contact</li>
+          <?php
+            outputNav($navLinks);
+           ?>
         </ul>
       </nav>
     </header>
