@@ -1,9 +1,23 @@
 <?php
+echo basename($_SERVER['SCRIPT_NAME'], ".php");
 $navlinks = ["home", "about", "contact"];
+$current_script = basename($_SERVER['SCRIPT_NAME'], ".php");
 
-function outputNav($navlinks) {
+function outputNav($navlinks,$current_script) {
   foreach ($navlinks as $link) {
-    echo "<li><a href='{$link}.php'>{$link}</a></li>";
+    if($link == "home" && $current_script == "index") {
+      $theclass = "active";
+    } elseif ($link == $current_script) {
+      $theclass = "active";
+    } else {
+      $theclass = '';
+    }
+    if($link == "home") {
+      $href = "index";
+    } else {
+      $href = $link;
+    }
+    echo "<li><a href='{$href}.php' class='{$theclass}'>" . ucfirst($link) . "</a></li>";
   }
 }
  ?>
@@ -29,7 +43,7 @@ function outputNav($navlinks) {
       <nav>
         <ul>
           <?php
-          outputNav($navlinks);
+          outputNav($navlinks, $current_script);
            ?>
         </ul>
       </nav>
