@@ -1,3 +1,27 @@
+<?php
+$navlinks = ["home", "about", "docs", "contact"];
+$current_page = basename($_SERVER['SCRIPT_NAME'], ".php");
+
+function outputNav($navlinks, $current_page) {
+  $output = '';
+  foreach($navlinks as $link) {
+    ## switch home to index for href
+    if($link == "home") {
+      $href = "index";
+    } else {
+      $href = $link;
+    }
+    ## set active class if href == $current_page
+    $class = '';
+    if($href == $current_page) {
+      $class = "active";
+    }
+    $output.= "<li><a href='{$href}.php' class='{$class}'>" . ucfirst($link) . "</a></li>";
+  }
+  echo $output;
+}
+ ?>
+
 <!doctype html>
 <html lang="en-us">
 <head>
@@ -21,10 +45,9 @@
     </div>
     <nav>
       <ul>
-        <li><a href="index.php" class="active">Home</a> </li>
-        <li><a href="about.php">About</a> </li>
-        <li><a href="docs.php">Documentation</a> </li>
-        <li><a href="contact.php">Contact</a> </li>
+      <?php
+        outputNav($navlinks, $current_page);
+       ?>
       </ul>
     </nav>
   </header>
