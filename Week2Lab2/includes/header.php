@@ -13,7 +13,7 @@ function outputNav($nav_links, $current_page) {
     if($href == $current_page) {
       $class = "active";
     }
-    $output.= "<li><a href='{$href}.php' class='{$class}'>{$link}</a></li>";
+    $output.= "<li><a href='{$href}.php' class='{$class}'>". ucfirst($link) ."</a></li>";
   }
   echo $output;
 }

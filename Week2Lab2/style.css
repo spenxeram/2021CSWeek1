@@ -9,6 +9,31 @@ font-family: 'arial', sans-serif;
 font-weight: lighter;
 }
 
+form button, label, input[type="text"] {
+    display: block;
+    width: 100%;
+    font-family: 'Oswald';
+    margin: 10px 0 0px 0;
+    font-weight: lighter !important;
+    font-size: 19px;
+}
+
+form button {
+    background: #275375;
+    display: block;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background 300ms;
+}
+
+form button:hover {
+    background: #3a7eb3;
+    box-shadow: 0 0 2px black;
+}
+
+
+
+
 .hamburger {
   display:none;
 }

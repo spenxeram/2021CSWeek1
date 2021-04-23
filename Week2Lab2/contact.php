@@ -8,9 +8,20 @@ include 'includes/header.php';
   <h2>Contact</h2>
   <hr>
   <div class="row col-2">
-    <img src="https://www.imt-soft.com/Cms_Data/Contents/IMT_Data/Folders/Partners/~contents/DKU2CQF62TKMBK4K/Logo-H-KHTN-002-.png" alt="">
+    <img src="https://www.imt-soft.com/Cms_Data/Contents/IMT_Data/Folders/Partners/~contents/DKU2CQF62TKMBK4K/Logo-H-KHTN-002-.png" style="border-radius: 25px;" alt="">
     <div class="contact-form">
       <h3>Send us a message</h3>
+      <form class="" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <label for="name">Name</label>
+        <input type="text" name="name" value="">
+        <label for="email">Email</label>
+        <input type="text" name="email" value="">
+        <label for="msg">Your Message</label>
+        <input type="text" name="msg" value="">
+        <label for="subscribe">Subscribe to our newsletter</label>
+        <input type="checkbox" name="subscribe" value="true">
+        <button type="submit" name="button">Submit Comment</button>
+      </form>
     </div>
   </div>
 
