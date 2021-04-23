@@ -264,6 +264,21 @@ footer {
     padding: 50px 20px;
 }
 
+label, input {
+    display: block;
+    margin: 5px 0;
+    font-family: 'Oswald';
+    width: 100;
+}
+
+input[type="text"] {
+    width: 100%;
+}
+
+form button {
+    background: #081c3a;
+    margin: 10px 0;
+}
 @media screen and (max-width: 786px) {
   .col-2, .col-3 {
     display: block;

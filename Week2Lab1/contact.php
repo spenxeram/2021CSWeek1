@@ -7,14 +7,22 @@ include 'includes/header.php';
  <div class="container">
    <h2>Contact Us</h2>
    <hr>
-   <div class="row">
-     <div class="col-md-6">
+   <div class="row col-2">
+     <div class="">
        <img src="https://www.imt-soft.com/Cms_Data/Contents/IMT_Data/Folders/Partners/~contents/DKU2CQF62TKMBK4K/Logo-H-KHTN-002-.png" alt="" width="300px">
      </div>
-     <div class="col-md-6">
+     <div class="">
        <h3>Contact Form</h3>
-       <form class="" action="index.html" method="post">
-
+       <form class="" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+         <label for="name">Your Name</label>
+         <input type="text" name="name" value="">
+         <label for="email">Email</label>
+         <input type="text" name="email" value="">
+         <label for="msg">Your Message</label>
+         <input type="text" name="msg" value="">
+         <label for="subscribe">Join our newsletter</label>
+         <input type="checkbox" name="subscribe" value="">
+         <button type="submit" name="button">Submit Form</button>
        </form>
      </div>
    </div>
