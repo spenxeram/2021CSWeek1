@@ -9,21 +9,26 @@ include 'includes/header.php';
    <hr>
    <div class="row col-2">
      <div class="">
-       <img src="https://www.imt-soft.com/Cms_Data/Contents/IMT_Data/Folders/Partners/~contents/DKU2CQF62TKMBK4K/Logo-H-KHTN-002-.png" alt="" width="300px">
+       <img src="https://www.imt-soft.com/Cms_Data/Contents/IMT_Data/Folders/Partners/~contents/DKU2CQF62TKMBK4K/Logo-H-KHTN-002-.png" alt="" style="border-radius:25px;" width="300px">
      </div>
      <div class="">
-       <h3>Contact Form</h3>
-       <form class="" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-         <label for="name">Your Name</label>
-         <input type="text" name="name" value="">
-         <label for="email">Email</label>
-         <input type="text" name="email" value="">
-         <label for="msg">Your Message</label>
-         <input type="text" name="msg" value="">
-         <label for="subscribe">Join our newsletter</label>
-         <input type="checkbox" name="subscribe" value="">
-         <button type="submit" name="button">Submit Form</button>
-       </form>
+
+       <?php
+        if(empty($_POST)) {
+          include 'includes/form.php';
+        } else {
+          ##process the form input
+          if($_POST['name'] == '') {
+            echo "<h2> You forgot to submit your name, please try again!</h2>";
+          } else {
+            echo "<h2> Thank you for submitting the form {$_POST['name']}!</h2>";
+            echo "<p>We will contact you at your email, {$_POST['email']}, as soon as possible!</p>";
+            if(isset($_POST['subscribe'])) {
+              echo "<h5>Thanks for joing our newsletter as well!</h5>";
+            }
+          }
+        }
+        ?>
      </div>
    </div>
  </div>
