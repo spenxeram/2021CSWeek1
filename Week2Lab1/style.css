@@ -279,6 +279,13 @@ form button {
     background: #081c3a;
     margin: 10px 0;
 }
+
+button:hover {
+    background: #0f346b;
+    border: 1px solid white;
+    box-shadow: 0px 0px 2px black;
+}
+
 @media screen and (max-width: 786px) {
   .col-2, .col-3 {
     display: block;
