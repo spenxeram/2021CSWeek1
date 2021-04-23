@@ -2,7 +2,21 @@
 $nav_links = ['home', 'docs', 'about', 'contact'];
 $current_page = basename($_SERVER['SCRIPT_NAME'], ".php");
 
-
+function outputNav($nav_links, $current_page) {
+  $output = "";
+  foreach($nav_links as $link) {
+    $href = $link;
+    if($link == "home") {
+      $href = 'index';
+    }
+    $class = '';
+    if($href == $current_page) {
+      $class = "active";
+    }
+    $output.= "<li><a href='{$href}.php' class='{$class}'>{$link}</a></li>";
+  }
+  echo $output;
+}
  ?>
 
 <!doctype html>
@@ -27,10 +41,10 @@ $current_page = basename($_SERVER['SCRIPT_NAME'], ".php");
     </div>
     <nav>
       <ul>
-        <li><a href="index.php" class="active">Home</a> </li>
-        <li><a href="docs.php">Docs</a> </li>
-        <li><a href="about.php">About Vechain</a> </li>
-        <li><a href="contact.php">Contact</a> </li>
+<!-- PHP outputNav here -->
+    <?php
+      outputNav($nav_links, $current_page);
+     ?>
 
       </ul>
     </nav>
