@@ -1,33 +1,6 @@
-<!doctype html>
-<html lang="en-us">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="twitter:" content="19709452298">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Your Name and Student ID</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto:wght@300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <div class="logo">
-      <img src="images/logo.png" alt="">
-    </div>
-    <div class="hamburger">
-      <a href="#">☰</a>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="#" class="active">Home</a> </li>
-        <li><a href="#">Builders</a> </li>
-        <li><a href="#">Documentation</a> </li>
-        <li><a href="#">News</a> </li>
-        <li><a href="#">Contact</a> </li>
-      </ul>
-    </nav>
-  </header>
+<?php
+include 'includes/header.php';
+ ?>
   <div class="front-banner">
     <div class="container">
       <div class="col-2">
@@ -212,40 +185,6 @@
       </div>
     </div> <!-- end container -->
   </div> <!-- end dark bg -->
-
-  <footer>
-    <div class="container">
-      <div class="row">
-        <h2>VeChain Foundation</h2>
-        <hr>
-        <p>©2019-now by VeChain Foundation | Terms of Use | Privacy Policy</p>
-      </div>
-    </div>
-    </div>
-
-  </footer>
-<script type="text/javascript">
-  let hamburger = document.querySelector(".hamburger");
-  let nav = document.querySelector("nav");
-  let body = document.querySelector("body");
-  let header = document.querySelector("header");
-  hamburger.addEventListener("click", function(e) {
-    e.preventDefault();
-    nav.classList.toggle("slide");
-    body.classList.toggle("slide-right");
-    console.log("nav clicked");
-  })
-
-  window.addEventListener("scroll", function() {
-    let scrollHeight = window.scrollY;
-    if(scrollHeight >= 200) {
-      header.classList.add("nav-trans");
-    } else if (scrollHeight < 200) {
-      header.classList.remove("nav-trans");
-    }
-  })
-
-
-</script>
-</body>
-</html>
+<?php
+include 'includes/footer.php';
+ ?>

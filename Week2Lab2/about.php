@@ -1,9 +1,12 @@
 
-
+<?php
+include 'includes/header.php';
+ ?>
 <div class="container">
   <div class="row">
     <hr>
     <h2>About VeChain</h2>
+    <hr>
     <div class="economy col-2">
       <img src="images/economy.png" alt="">
       <div class="right">
@@ -19,3 +22,6 @@
   </div>
 
 </div>
+<?php
+include 'includes/footer.php';
+ ?>
