@@ -47,6 +47,10 @@ header {
     transition: background 300ms, height 300ms;
 }
 
+.hamburger {
+    display: none;
+}
+
 header.nav-trans {
     background: #333333 !important;
 }
@@ -266,6 +270,10 @@ footer {
   }
   .col-3 > div, .col-2 > div {
       margin: 1rem 0;
+  }
+
+  .hamburger {
+    display: initial;
   }
 
   nav {
