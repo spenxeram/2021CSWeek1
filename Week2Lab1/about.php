@@ -3,7 +3,10 @@ include 'includes/header.php';
  ?>
 
 <div class="container">
-  <div class="row">
+
+  <div class="row mt-5">
+    <hr>
+    <h2>About VeChainThor</h2>
     <div class="economy col-2">
       <img src="images/economy.png" alt="">
       <div class="right">
