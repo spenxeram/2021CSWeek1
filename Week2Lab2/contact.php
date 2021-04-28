@@ -10,18 +10,47 @@ include 'includes/header.php';
   <div class="row col-2">
     <img src="https://www.imt-soft.com/Cms_Data/Contents/IMT_Data/Folders/Partners/~contents/DKU2CQF62TKMBK4K/Logo-H-KHTN-002-.png" style="border-radius: 25px;" alt="">
     <div class="contact-form">
-      <h3>Send us a message</h3>
-      <form class="" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-        <label for="name">Name</label>
-        <input type="text" name="name" value="">
-        <label for="email">Email</label>
-        <input type="text" name="email" value="">
-        <label for="msg">Your Message</label>
-        <input type="text" name="msg" value="">
-        <label for="subscribe">Subscribe to our newsletter</label>
-        <input type="checkbox" name="subscribe" value="true">
-        <button type="submit" name="button">Submit Comment</button>
-      </form>
+
+      <?php
+        if(empty($_POST)) {
+          include 'includes/form.php';
+        } else {
+          $name = htmlspecialchars($_POST['name']);
+          $email = htmlspecialchars($_POST['email']);
+          echo "<h1>Thank you for your message, {$name}!<h1>";
+          echo "<h3>We will get back to you at {$email} as soon as possible</h3>";
+          if(isset($_POST['subscribe'])) {
+            echo "<p>Thank you for joining our newsletter!</p>";
+          }
+        }
+
+        var_dump($_POST);
+        if(!empty($_POST)) {
+          $name = htmlspecialchars($_POST['name']);
+          if(empty($_POST['email'])) {
+            echo "Email empty!";
+          }
+        } else {
+          echo "Name not set";
+        }
+        $errors = [
+          "email" => false,
+          "name" => true
+        ];
+        var_dump($errors);
+        function updateErr(&$errors) {
+          $errors['email'] = true;
+          var_dump($errors);
+        }
+        updateErr($errors);
+        var_dump($errors);
+        if(isset($name)) {
+          echo "Name is set to: {$name}!";
+          var_dump($name);
+        } else {
+          echo "Name has not been set.";
+        }
+       ?>
     </div>
   </div>
 

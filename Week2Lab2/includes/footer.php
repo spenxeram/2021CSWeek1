@@ -4,7 +4,7 @@
       <div class="row">
         <h2>VeChain Foundation</h2>
         <hr>
-        <p>©2019-now by VeChain Foundation | Terms of Use | Privacy Policy</p>
+        <p>© <?php echo date("Y") ?> by VeChain Foundation | Terms of Use | Privacy Policy</p>
       </div>
     </div>
     </div>
@@ -20,7 +20,7 @@
     nav.classList.toggle("slide");
     body.classList.toggle("slide-right");
     console.log("nav clicked");
-  })
+  });
 
   window.addEventListener("scroll", function() {
     let scrollHeight = window.scrollY;
@@ -29,9 +29,7 @@
     } else if (scrollHeight < 200) {
       header.classList.remove("nav-trans");
     }
-  })
-
-
+  });
 </script>
 </body>
 </html>
