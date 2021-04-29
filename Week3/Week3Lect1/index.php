@@ -3,12 +3,15 @@
 if(isset($_POST['submit'])) {
   // sanitize user inputs
   var_dump($_POST);
+  $username = htmlspecialchars($_POST['username']);
+  echo $username;
+  $email = htmlspecialchars($_POST['email']);
+  $password1 = htmlspecialchars($_POST['password1']);
+  $password2 = htmlspecialchars($_POST['password2']);
+
 
   //validate user inputs
 }
-
- var_dump($_POST);
-
  ?>
 
 <!doctype html>
@@ -42,12 +45,16 @@ if(isset($_POST['submit'])) {
           <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <div class="mb-3">
               <label for="name" class="form-label">User Name</label>
-              <input type="text" class="form-control" id="username" name="username">
+              <input type="text" class="form-control" id="username" name="username" value="<?php if (isset($username)) {
+                echo $username;
+              }?>">
               <div class="warning">Output error with PHP</div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="">
+              <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<?php if (isset($email)) {
+                echo $email;
+              }?>">
               <div class="warning">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
