@@ -52,8 +52,12 @@ if(isset($_POST['submit'])) {
         </div>
       </div>
     </div>
-
     <div class="container">
+      <?php if ($error): ?>
+        <div class="alert alert-danger">There was a problem with your form!</div>
+      <?php elseif ($error == false && isset($_POST['submit'])): ?>
+        <div class="alert alert-success">Thank you for submitting the form!</div>
+      <?php endif; ?>
       <div class="row">
         <form class="" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <div class="mb-2">
