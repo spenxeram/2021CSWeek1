@@ -19,6 +19,16 @@ if(isset($_POST['submit'])) {
     $email_warning = "Invalid Email Submitted!";
     $error = true;
   }
+
+  if(strlen($password1) < 5) {
+    $password1_warning = "Password must be more than 5 characters!";
+    $error = true;
+  }
+
+  if($password1 != $password2) {
+    $password1_warning = "Passwords don't match!";
+    $error = true;
+  }
 }
  ?>
 
@@ -59,37 +69,50 @@ if(isset($_POST['submit'])) {
         <div class="alert alert-success">Thank you for submitting the form!</div>
       <?php endif; ?>
       <div class="row">
-        <form class="" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-          <div class="mb-2">
-             <label for="username" class="form-label">User Name</label>
-             <input type="text" class="form-control" name="username" value="<?php if(isset($username)) {
-               echo $username;
-             } ?>">
-             <div class="warning"><?php if (isset($username_warning)) {
-               echo $username_warning;
-             } ?></div>
-           </div>
-           <div class="mb-2">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" name="email" value="<?php if(isset($email)) {
-                echo $email;
-              } ?>">
-              <div class="warning"><?php if(isset($email_warning)) {
-                echo $email_warning;
-              } ?></div>
-            </div>
+        <div class="col-md-6">
+          <form class="" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <div class="mb-2">
-               <label for="password1" class="form-label">Password</label>
-               <input type="password" class="form-control" name="password1">
-               <div class="warning"></div>
+               <label for="username" class="form-label">User Name</label>
+               <input type="text" class="form-control" name="username" value="<?php if(isset($username)) {
+                 echo $username;
+               } ?>">
+               <div class="warning"><?php if (isset($username_warning)) {
+                 echo $username_warning;
+               } ?></div>
              </div>
              <div class="mb-2">
-                <label for="password2" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" name="password2">
-                <div class="warning"></div>
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" value="<?php if(isset($email)) {
+                  echo $email;
+                } ?>">
+                <div class="warning"><?php if(isset($email_warning)) {
+                  echo $email_warning;
+                } ?></div>
               </div>
-            <button type="submit" class="btn btn-dark btn-lg btn-block mb-5" name="submit">Submit Form</button>
-        </form>
+              <div class="mb-2">
+                 <label for="password1" class="form-label">Password</label>
+                 <input type="password" class="form-control" name="password1" value="<?php if(isset($password1)) {
+                   echo $password1;
+                 } ?>">
+                 <div class="warning"><?php if (isset($password1_warning)) {
+                   echo $password1_warning;
+                 } ?></div>
+               </div>
+               <div class="mb-2">
+                  <label for="password2" class="form-label">Confirm Password</label>
+                  <input type="password" class="form-control" name="password2">
+                  <div class="warning"><?php if (isset($password2_warning)) {
+                    echo $password2_warning;
+                  } ?></div>
+                </div>
+              <button type="submit" class="btn btn-dark btn-lg btn-block mb-5" name="submit">Submit Form</button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <?php if ($error == false && isset($_POST['submit'])): ?>
+            <img src="https://i.imgur.com/jb268vM.gif" alt="">
+          <?php endif; ?>
+        </div>
       </div>
       <?php
       var_dump($_POST);
