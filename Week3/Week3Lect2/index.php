@@ -1,3 +1,27 @@
+<?php
+$error = false;
+if(isset($_POST['submit'])) {
+  // sanitize user inputs to be used later
+  $username = htmlspecialchars($_POST['username']);
+  $email = htmlspecialchars($_POST['email']);
+  $password1 = htmlspecialchars($_POST['password1']);
+  $password2 = htmlspecialchars($_POST['password2']);
+
+  //validate user inputs
+
+  //validate username
+  if(strlen($username) < 5 || strlen($username) > 20) {
+    $username_warning = "Username must be between 5 - 20 characters!";
+    $error = true;
+  }
+
+  if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $email_warning = "Invalid Email Submitted!";
+    $error = true;
+  }
+}
+ ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -34,27 +58,38 @@
         <form class="" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <div class="mb-2">
              <label for="username" class="form-label">User Name</label>
-             <input type="text" class="form-control" name="username">
-             <div class="warning">User name must be between 5 - 20 characters!</div>
+             <input type="text" class="form-control" name="username" value="<?php if(isset($username)) {
+               echo $username;
+             } ?>">
+             <div class="warning"><?php if (isset($username_warning)) {
+               echo $username_warning;
+             } ?></div>
            </div>
            <div class="mb-2">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" name="email">
-              <div class="warning">User name must be between 5 - 20 characters!</div>
+              <input type="email" class="form-control" name="email" value="<?php if(isset($email)) {
+                echo $email;
+              } ?>">
+              <div class="warning"><?php if(isset($email_warning)) {
+                echo $email_warning;
+              } ?></div>
             </div>
             <div class="mb-2">
                <label for="password1" class="form-label">Password</label>
                <input type="password" class="form-control" name="password1">
-               <div class="warning">User name must be between 5 - 20 characters!</div>
+               <div class="warning"></div>
              </div>
              <div class="mb-2">
                 <label for="password2" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" name="password2">
-                <div class="warning">User name must be between 5 - 20 characters!</div>
+                <div class="warning"></div>
               </div>
             <button type="submit" class="btn btn-dark btn-lg btn-block mb-5" name="submit">Submit Form</button>
         </form>
       </div>
+      <?php
+      var_dump($_POST);
+       ?>
     </div>
 
     <footer style="background:black; color: white; text-align:center; padding: 30px;">
