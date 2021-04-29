@@ -18,9 +18,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
           </nav>
-    <div action="index.php" method="post" class="container">
+    <div class="container">
       <div class="row">
-        <form class="">
+        <?php if (true): ?>
+          <div class="alert alert-danger" role="alert">
+              Form has errors!
+          </div>
+        <?php endif; ?>
+        <form class="was_validated"  action="index.php" method="post" >
 
           <div class="mb-3">
             <label for="name">Name</label>
@@ -29,7 +34,7 @@
           </div>
 
           <div class="mb-3">
-            <input type="text" class="form-control" aria-label="example" required>
+            <input type="text" class="form-control" aria-label="example">
             <div class="invalid-feedback">Example invalid form file feedback</div>
           </div>
 
@@ -37,6 +42,12 @@
             <button class="btn btn-primary" type="submit"  name="submit">Submit form</button>
           </div>
           </form>
+          <?php var_dump(isset($_POST['submit']));
+
+          var_dump(filter_var("spencer@gmail.com", FILTER_VALIDATE_EMAIL));
+
+        var_dump(filter_has_var($_POST['submit'],INPUT_POST));
+          ?>
       </div>
     </div>
 
