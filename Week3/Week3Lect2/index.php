@@ -26,7 +26,7 @@ if(isset($_POST['submit'])) {
   }
 
   if($password1 != $password2) {
-    $password1_warning = "Passwords don't match!";
+    $password2_warning = "Passwords don't match!";
     $error = true;
   }
 }
