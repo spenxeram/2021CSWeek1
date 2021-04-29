@@ -1,5 +1,5 @@
 <?php
-
+$error = false;
 if(isset($_POST['submit'])) {
   // sanitize user inputs
   var_dump($_POST);
@@ -11,6 +11,28 @@ if(isset($_POST['submit'])) {
 
 
   //validate user inputs
+    // check username
+  if(strlen($username) < 5 || strlen($username) > 20) {
+    $username_warning = "Username must be between 5-20 characters!";
+    $error = true;
+  }
+    // check user Email
+  if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    $email_warning = "Invalid email submitted!";
+    $error = true;
+  }
+    // check pw 1
+  if(strlen($password1) < 5) {
+    $password1_warning = "Password must be more than 5 characters!";
+    $error = true;
+  }
+
+  if($password1 != $password2) {
+    $password2_warning = "Passwords don't match, try again!";
+    $error = true;
+  }
+
+
 }
  ?>
 
@@ -40,6 +62,12 @@ if(isset($_POST['submit'])) {
       <p class="lead">Using filter_var() function and flags.</p>
     </div>
     <div class="container">
+      <?php var_dump($error); ?>
+      <?php if(isset($error)) if ($error): ?>
+        <div class="alert alert-danger" role="alert">
+            Your form has some problems, please check for errors!
+        </div>
+      <?php endif; ?>
       <div class="row">
 
           <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
@@ -48,24 +76,32 @@ if(isset($_POST['submit'])) {
               <input type="text" class="form-control" id="username" name="username" value="<?php if (isset($username)) {
                 echo $username;
               }?>">
-              <div class="warning">Output error with PHP</div>
+              <div class="warning"><?php if (isset($username_warning)) {
+                echo $username_warning;
+              } ?></div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
               <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<?php if (isset($email)) {
                 echo $email;
               }?>">
-              <div class="warning">We'll never share your email with anyone else.</div>
+              <div class="warning"><?php if (isset(  $email_warning)) {
+                echo $email_warning;
+              } ?></div>
             </div>
             <div class="mb-3">
               <label for="password1" class="form-label">Password</label>
               <input type="password" class="form-control" name="password1" value="">
-              <div class="warning">Password must be 5 characters long</div>
+              <div class="warning"><?php if($password1_warning) {
+                echo $password1_warning;
+              } ?></div>
             </div>
             <div class="mb-3">
               <label for="password2" class="form-label">Confirm Password</label>
               <input type="password" class="form-control" name="password2" value="">
-              <div class="warning">Password must match!</div>
+              <div class="warning"><?php if($password2_warning) {
+                echo $password2_warning;
+              } ?></div>
             </div>
             <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
