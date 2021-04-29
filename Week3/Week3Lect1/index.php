@@ -31,7 +31,7 @@ if(isset($_POST['submit'])) {
   }
 
   if($error != true) {
-  //  header("Location: success.php");
+   header("Location: success.php");
   }
 }
  ?>
