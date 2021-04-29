@@ -13,7 +13,10 @@
             <a class="navbar-brand" href="#">ITEC Form Validation</a>
         </div>
     </nav>
-
+    <div class="jumbotron">
+      <h1 class="display-3">Form Validation in PHP</h1>
+      <p class="lead">Using filter_var() function and flags.</p>
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
