@@ -1,25 +1,21 @@
 <?php
 include 'db.php';
 $num_rows = 0;
-if(isset($_GET['id'])) {
-  $id = $_GET['id'];
-  $sql = "SELECT wpu.ID AS author_id, wpp.post_date, wpp.post_title, wpp.post_content, wpu.user_nicename
+if(isset($_GET['author'])) {
+  $author = $_GET['author'];
+  $sql = "SELECT wpu.ID AS author_id, wpp.ID, wpp.post_date, wpp.post_title, wpp.post_content, wpu.user_nicename
   FROM wp_posts wpp
   JOIN wp_users wpu ON wpu.ID = wpp.post_author
-  WHERE wpp.ID = ?";
+  WHERE wpu.ID = ?";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("i", $id);
+  $stmt->bind_param("i", $author);
   $stmt->execute();
   $result = $stmt->get_result();
 
   if($result->num_rows != 0) {
     $num_rows = $result->num_rows;
-    $row = $result->fetch_assoc();
-    $title = $row['post_title'];
-    $date = date_create($row['post_date']);
-    $body = $row['post_content'];
-    $author = $row['user_nicename'];
-    $author_id = $row['author_id'];
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    $author = $rows[0]['user_nicename'];
   }
 
 } else {
@@ -48,10 +44,9 @@ if(isset($_GET['id'])) {
         <div class="container">
           <button type="button" class="btn btn-outline-light"><a href='index.php'> < Back</a></button>
           <?php if ($num_rows != 0): ?>
-            <h1 class="display-3"><?php echo $title; ?></h1>
-            <h3>Author: <a href="author.php?author=<?php echo $author_id; ?>"> <?php echo $author; ?></a></h3>
-            <h5 class="font-weight-light"><em><?php echo date_format($date,"Y/m/d"); ?> </em></h5>
+            <h1 class="display-3"><?php echo $author; ?></h1>
           <?php else: ?>
+            <h1>Author not found!</h1>
           <?php endif; ?>
 
         </div>
@@ -59,9 +54,16 @@ if(isset($_GET['id'])) {
       <div class="container recent-articles">
         <div class="row">
           <?php
-            if($num_rows != 0) {
-              echo $body;
-            }
+          if($num_rows == 0) {
+            echo "<h3 class='mb-5'>No results found try again....</h3>";
+          } else {
+           foreach ($rows as $row) {
+             $post = filter_var(substr($row['post_content'],0, 55), FILTER_SANITIZE_STRING);
+             echo "<div class='col-md-6'>
+                   <h3><a href='article.php?id={$row['ID']}'>{$row['post_title']}</a></h3>
+                   <p>{$post}...</p></div>";
+           }
+         }
            ?>
 
 
