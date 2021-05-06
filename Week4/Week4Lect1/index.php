@@ -17,7 +17,7 @@ $rows = $results->fetch_all(MYSQLI_ASSOC);
   </head>
   <body>
     <!-- fixed-top | sticky-top | fixed-bottom -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">CS 204 MSQLi</a>
         </div>
@@ -28,7 +28,7 @@ $rows = $results->fetch_all(MYSQLI_ASSOC);
         <p class="lead">Search the WordPress DB using MYSQLi</p>
         <form class="" action="search.php" method="post">
           <input type="text" name="search" placeholder="Search for an article..." class="form-control mt-4 mb-4" value="">
-          <button type="button" class="btn btn-outline-primary btn-lg" name="submit">Search Articles</button>
+          <button type="submit" class="btn btn-outline-primary btn-lg" name="submit">Search Articles</button>
         </form>
       </div>
     </div>
