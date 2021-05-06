@@ -1,5 +1,7 @@
 <?php
 include 'db.php';
+$results = $conn->query("SELECT * FROM wp_posts ORDER BY comment_count LIMIT 12");
+$rows = $results->fetch_all(MYSQLI_ASSOC);
  ?>
 
  <!doctype html>
@@ -23,11 +25,18 @@ include 'db.php';
          <p class="lead">Query the WordPress Database using MYSQLi</p>
        </div>
      </div>
-     <div class="container">
+     <div class="container recent-articles">
        <h2 class="font-weight-light">Recent Articles</h2>
        <hr>
        <div class="row">
-
+         <?php
+          foreach ($rows as $row) {
+            $post = filter_var(substr($row['post_content'],0, 55), FILTER_SANITIZE_STRING);
+            echo "<div class='col-md-6'>
+                  <h3>{$row['post_title']}</h3>
+                  <p>{$post}...</p></div>";
+          }
+          ?>
 
 
        </div>
