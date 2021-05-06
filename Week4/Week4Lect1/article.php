@@ -38,24 +38,25 @@ $row = $results->fetch_assoc();
            } else {
              echo $row['post_title'];
            }
-            ?>
+          ?>
          </h1>
-
        </div>
      </div>
      <div class="container">
 
        <hr>
        <button type="button" class="btn btn-light"><a href='index.php'> < Back</a></button>
-       <div class="row">
          <?php
           if($num_rows == 0) {
             echo "...............";
           } else {
+            echo "<h3 class='display-4'>Author: {$row['post_author']}</h3><br>";
+            echo "<h4><em>Post Date: {$row['post_date']}</em></h4><br>";
+            echo "<hr>";
             echo $row['post_content'];
           }
           ?>
-       </div>
+  
      </div>
 
      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
