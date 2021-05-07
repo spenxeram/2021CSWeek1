@@ -45,6 +45,10 @@ include 'includes/header.php';
           <div class="alert alert-success" role="alert">
             You created a new post successfully!
           </div>
+        <?php elseif (isset($_GET['update'])): ?>
+          <div class="alert alert-warning" role="alert">
+            You have updated the post successfully!
+          </div>
         <?php endif; ?>
         <div class="row">
           <?php
@@ -57,6 +61,9 @@ include 'includes/header.php';
             if($num_rows != 0) {
               echo "<button class='btn mt-5 btn-outline-warning'>
               <a href='edit.php?id={$id}'>Edit</a>
+              </button>";
+              echo "<button class=' float-right btn mt-5 btn-outline-danger'>
+              <a href='delete.php?id={$id}'>Delete</a>
               </button>";
             }
          ?>

@@ -4,7 +4,6 @@ include 'includes/header.php';
 
 if(isset($_GET['id'])) {
   $id = $_GET['id'];
-
   $sql = "SELECT * FROM wp_posts WHERE ID = ?";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("s", $id);
@@ -14,6 +13,20 @@ if(isset($_GET['id'])) {
   $title = filter_var($rows['post_title'], FILTER_SANITIZE_STRING);
   $body = filter_var($rows['post_content'], FILTER_SANITIZE_STRING);
   $id = filter_var($rows['ID'], FILTER_SANITIZE_STRING);
+} else if(isset($_POST['submit'])) {
+  $id = $_POST['submit'];
+  $title = $_POST['title'];
+  $body = $_POST['body'];
+
+  $sql = "UPDATE wp_posts SET post_content = ?, post_title = ? WHERE wp_posts.ID = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("sss", $body, $title, $id);
+  $stmt->execute();
+  var_dump($stmt);
+  if($stmt->affected_rows == 1 && $stmt->errno == 0) {
+    $location = "Location: article.php?id={$id}&update=true";
+    header($location);
+  }
 }
  ?>
 <div class="container">
