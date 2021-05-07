@@ -43,12 +43,8 @@ include 'includes/header.php';
       <div class="container recent-articles">
         <?php if (isset($_GET['new'])): ?>
           <div class="alert alert-success" role="alert">
-              Your articles has been created!
+            You created a new post successfully!
           </div>
-        <?php elseif(isset($_GET['update'])):?>
-        <div class="alert alert-warning" role="alert">
-            Your articles has been updated!
-        </div>
         <?php endif; ?>
         <div class="row">
           <?php

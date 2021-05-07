@@ -7,13 +7,16 @@ if(isset($_POST['submit'])) {
   $body = $_POST['body'];
   $date = date("Y-m-d H:i:s");
   // #1 prepare the statement sql with placeholders
-  $sql = "INSERT INTO wp_posts (post_author, post_date, post_content, post_title) VALUE (1, ?, ?, ?)";
-  $stmt = $conn->prepare($sql);
+  $sql1 = "INSERT INTO wp_posts (post_author, post_date, post_content, post_title) VALUE (1, ?, ?, ?)";
+  // use sql2 if the db is throwing errors regarding the timestamps
+  $sql2 = "INSERT INTO wp_posts (ID, post_author, post_date, post_date_gmt, post_content, post_title, post_excerpt, post_status, comment_status, ping_status, post_password, post_name, to_ping, pinged, post_modified, post_modified_gmt, post_content_filtered, post_parent, guid, menu_order, post_type, post_mime_type, comment_count) VALUES (NULL, '1', '0000-00-00 00:00:00.000000', '0000-00-00 00:00:00.000000', ?, ?, '', 'publish', 'open', 'open', '', '', '', '', '0000-00-00 00:00:00.000000', '0000-00-00 00:00:00.000000', '', '0', '', '0', 'post', '', '0')";
+  $stmt = $conn->prepare($sql1);
   // #2 bind params to statement
   $stmt->bind_param("sss", $date, $body, $title);
   // #3 execute statement
   $stmt->execute();
   // #4 check that row has been inserted $stmt->affected_rows
+
   var_dump($stmt);
   if($stmt->affected_rows == 1) {
     $id = $stmt->insert_id;
