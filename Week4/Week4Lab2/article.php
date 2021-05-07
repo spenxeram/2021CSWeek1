@@ -62,7 +62,7 @@ include 'includes/header.php';
               echo "<button class='btn mt-5 btn-outline-warning'>
               <a href='edit.php?id={$id}'>Edit</a>
               </button>";
-              echo "<button class=' float-right btn mt-5 btn-outline-danger'>
+              echo "<button class='float-right btn mt-5 btn-outline-danger'>
               <a href='delete.php?id={$id}'>Delete</a>
               </button>";
             }

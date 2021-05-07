@@ -18,6 +18,11 @@ include 'includes/header.php';
        </div>
      </div>
      <div class="container recent-articles">
+       <?php if (isset($_GET['delete'])): ?>
+         <div class="alert alert-danger" role="alert">
+           Article deleted!
+         </div>
+       <?php endif; ?>
        <h2 class="font-weight-light">Recent Articles</h2>
        <hr>
        <div class="row">
