@@ -3,7 +3,7 @@ include 'db.php';
 $num_rows = 0;
 if(isset($_GET['id'])) {
   $id = $_GET['id'];
-  $sql = "SELECT wpu.ID AS author_id, wpp.post_date, wpp.post_title, wpp.post_content, wpu.user_nicename
+  $sql = "SELECT wpu.ID AS author_id, wpp.post_date, wpp.post_title, wpp.post_content, wpu.user_nicename, wpp.ID
   FROM wp_posts wpp
   JOIN wp_users wpu ON wpu.ID = wpp.post_author
   WHERE wpp.ID = ?";
@@ -20,6 +20,7 @@ if(isset($_GET['id'])) {
     $body = $row['post_content'];
     $author = $row['user_nicename'];
     $author_id = $row['author_id'];
+    $id = $row['ID'];
   }
 
 } else {
@@ -51,8 +52,14 @@ include 'includes/header.php';
               echo $body;
             }
            ?>
+        </div> <!-- end of row -->
+        <?php
+            if($num_rows != 0) {
+              echo "<button class='btn mt-5 btn-outline-warning'>
+              <a href='edit.php?id={$id}'>Edit</a>
+              </button>";
+            }
+         ?>
 
-
-        </div>
       </div>
 <?php include 'includes/footer.php'; ?>
