@@ -40,6 +40,11 @@ include 'includes/header.php';
         </div>
       </div>
       <div class="container recent-articles">
+        <?php if (isset($_GET['new'])): ?>
+          <div class="alert alert-success" role="alert">
+              Your articles has been created!
+          </div>
+        <?php endif; ?>
         <div class="row">
           <?php
             if($num_rows != 0) {

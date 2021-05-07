@@ -14,17 +14,11 @@ if(isset($_POST['submit'])) {
   // #3 execute the statement
   $stmt->execute();
   // #4 check or dump results to verify row affected (should be 1)
-  var_dump($stmt);
   if($stmt->affected_rows == 1) {
     $id = $stmt->insert_id;
-    $location = "Location: articles.php?id={$id}&new=true";
+    $location = "Location: article.php?id={$id}&new=true";
     header($location);
   }
-
-
-
-
-
 }
 
  ?>
