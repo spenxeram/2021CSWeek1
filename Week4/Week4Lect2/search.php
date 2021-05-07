@@ -29,7 +29,7 @@ include 'includes/header.php';
           </form>
         </div>
       </div>
-      <div class="container recent-articles">
+      <div class="container front recent-articles">
         <div class="row">
 
           <?php

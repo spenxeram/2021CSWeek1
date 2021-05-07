@@ -8,7 +8,7 @@ include 'includes/header.php';
 
 
      <div class="jumbotron jumbotron-fluid">
-       <div class="container">
+       <div class="container front">
          <h1 class="display-3">MYSQLi Connect</h1>
          <p class="lead">Query the WordPress Database using MYSQLi</p>
          <form class="" action="search.php" method="post">

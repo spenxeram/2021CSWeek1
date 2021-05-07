@@ -17,7 +17,6 @@ if(isset($_GET['author'])) {
     $rows = $result->fetch_all(MYSQLI_ASSOC);
     $author = $rows[0]['user_nicename'];
   }
-
 } else {
   //output error - article not found
 }

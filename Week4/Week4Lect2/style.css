@@ -12,3 +12,10 @@
   background-size: cover !important;
 
   }
+
+  .jumbotron .front {
+    background: #ffffff80;
+    padding: 15px;
+    box-shadow: 1px 1px 5px #5151511c;
+    border-radius: 10px;
+}

@@ -45,6 +45,10 @@ include 'includes/header.php';
           <div class="alert alert-success" role="alert">
               Your articles has been created!
           </div>
+        <?php elseif(isset($_GET['update'])):?>
+        <div class="alert alert-warning" role="alert">
+            Your articles has been updated!
+        </div>
         <?php endif; ?>
         <div class="row">
           <?php

@@ -20,7 +20,6 @@ if(isset($_GET['id'])) {
     $body = $row['post_content'];
     $author = $row['user_nicename'];
     $author_id = $row['author_id'];
-    var_dump($result);
   }
 
 } else {
