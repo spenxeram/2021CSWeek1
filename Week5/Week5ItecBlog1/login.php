@@ -29,10 +29,10 @@ if(isset($_POST['create'])) {
       // execute the statement
       $stmt->execute();
 
-        $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $username;
-        header("Location: index.php");
-      
+      $_SESSION['loggedin'] = true;
+      $_SESSION['username'] = $username;
+      header("Location: index.php");
+
     } else {
       $error = "danger";
       $errorMsg = "Password or email failed";
