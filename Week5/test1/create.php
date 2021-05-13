@@ -1,8 +1,4 @@
 <?php
-session_start();
-$_SESSION['loggedin'] = true;
-$_SESSION['username'] = "Spencer";
-include 'db.php';
 include 'includes/header.php';
 
 if(isset($_POST['submit'])) {
@@ -20,12 +16,12 @@ if(isset($_POST['submit'])) {
   // #4 check that row has been inserted $stmt->affected_rows
 
   var_dump($stmt);
-  // if($stmt->affected_rows == 1) {
-  //   $id = $stmt->insert_id;
-  //
-  //   $location = "Location: article.php?id={$id}&new=true";
-  //   header($location);
-  // }
+  if($stmt->affected_rows == 1) {
+    $id = $stmt->insert_id;
+
+    $location = "Location: article.php?id={$id}&new=true";
+    header($location);
+  }
 
 }
 
@@ -40,13 +36,6 @@ if(isset($_POST['submit'])) {
       <textarea name="body" class="form-control" rows="8" cols="80"></textarea>
       <button type="submit" class="btn mt-4 btn-block btn-outline-primary" name="submit">Create New Post</button>
     </form>
-    <?php
-      if(isset($_POST['submit'])) {
-        var_dump($_POST);
-        $_SESSION = [];
-        var_dump($_SESSION);
-      }
-     ?>
   </div>
 </div>
 
