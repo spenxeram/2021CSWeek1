@@ -30,7 +30,13 @@ if(isset($_POST['create'])) {
     $errors['create_email'] = $errorMsg;
   }
 
+  // #3 check that passwords match and are 5+ chars in length
+  if(strlen($password1) < 5 || $password1 != $password2) {
+    $errorMsg = "Password is too short or doesn't match!";
+    $errors['create_password'] = $errorMsg;
+  }
 
+var_dump($errors);
 }
  ?>
 
