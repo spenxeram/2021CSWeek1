@@ -1,7 +1,7 @@
 <?php
 include 'includes/header.php';
  ?>
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron-fluid text-white">
       <div class="container">
         <h1 class="display-3">Itec Blog 2021</h1>
         <p class="lead">Log in and tell us about the covid experience</p>

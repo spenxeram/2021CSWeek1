@@ -12,7 +12,20 @@ if(isset($_POST['login'])) {
       $stmt->execute();
       $results = $stmt->get_result();
       if($results->num_rows == 1) {
-        $row = $result->fetch_assoc();
+        $row = $results->fetch_assoc();
+        var_dump($row);
+        if(password_verify($password, $row['user_hash'])) {
+          $_SESSION['loggedin'] = true;
+          $_SESSION['user_name'] = $row['user_name'];
+          $_SESSION['user_id'] = $row['ID'];
+          $_SESSION['user_role'] = $row['user_role'];
+          header("Location: index.php?login=success");
+
+        } else {
+          $errorMsg = "Password invalid1";
+          $errors['login_password'] = $errorMsg;
+        }
+
       } else {
         $errorMsg = "Username not found!";
         $errors['login_username'] = $errorMsg;
@@ -124,5 +137,8 @@ if(isset($_POST['create'])) {
 </div>
 
 <?php
+$adminpass = "itec2021";
+echo $adminpass . "<br>";
+echo password_hash($adminpass, PASSWORD_DEFAULT);
 include 'includes/footer.php';
  ?>
