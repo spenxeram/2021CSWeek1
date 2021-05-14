@@ -93,5 +93,8 @@ if(isset($_POST['create'])) {
  </div>
 
  <?php
+ $adminpass = "itec2021";
+ echo $adminpass . "<br>";
+ echo password_hash($adminpass, PASSWORD_DEFAULT);
  include 'includes/footer.php';
   ?>

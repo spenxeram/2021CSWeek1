@@ -44,7 +44,7 @@ var_dump($_SESSION);
                     </li>
                   <?php else: ?>
                     <li class="nav-item active">
-                        <a class="nav-link" href="login.php">Login<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="login.php"><i class="fa fa-user"></i> Create Account | Login<span class="sr-only">(current)</span></a>
                     </li>
                   <?php endif; ?>
                 </ul>
