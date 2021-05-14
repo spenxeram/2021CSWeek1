@@ -1,6 +1,29 @@
 <?php
 include 'includes/header.php';
 $errors = [];
+
+if(isset($_POST['login'])) {
+    $username = $_POST['name'];
+    $password = $_POST['password'];
+    if($username != '') {
+      $sql = "SELECT * FROM users WHERE user_name = ?";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("s", $username);
+      $stmt->execute();
+      $results = $stmt->get_result();
+      if($results->num_rows == 1) {
+        $row = $result->fetch_assoc();
+      } else {
+        $errorMsg = "Username not found!";
+        $errors['login_username'] = $errorMsg;
+      }
+    } else {
+      $errorMsg = "Username field is empty!";
+      $errors['login_username'] = $errorMsg;
+    }
+}
+
+
 if(isset($_POST['create'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -46,12 +69,10 @@ if(isset($_POST['create'])) {
         $_SESSION['user_id'] = $stmt->insert_id;
         $_SESSION['user_role'] = 2;
         header("Location: index.php?login=success");
-
       } else {
-        // code...
+        // error writing user to db
       }
     }
-
 
 }
 
