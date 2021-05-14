@@ -28,10 +28,10 @@ include 'db.php';
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="index.php"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="posts.php">Posts</a>
+                        <a class="nav-link" href="create.php"><i class="fas fa-pen"></i> Create Post</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav float-right">
