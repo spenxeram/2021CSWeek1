@@ -7,7 +7,7 @@ if(isset($_POST['create'])) {
   $password1 = $_POST['password1'];
   $password2 = $_POST['password2'];
 
-  // check username is not empty and doesn't exist in the db already
+  // #1 check username is not empty and doesn't exist in the db already
   if(strlen($username) < 5) {
     $errorMsg = "Username must be more than 5 characters!";
     $errors['create_username'] = $errorMsg;
@@ -23,11 +23,12 @@ if(isset($_POST['create'])) {
       $errorMsg = "This username is taken, please use another!";
       $errors['create_username'] = $errorMsg;
     }
-
-
   }
-
-
+  // #2 check and validate user email
+  if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errorMsg = "Email is invalid!";
+    $errors['create_email'] = $errorMsg;
+  }
 
 
 }
@@ -48,9 +49,11 @@ if(isset($_POST['create'])) {
          <input type="text" name="username" class="form-control" placeholder="Input your username..." value="<?php if (isset($username)) {
            echo htmlspecialchars($username);}?>">
          <p class="error"><?php if(isset($errors['create_username'])) {echo $errors['create_username'];} ?></p>
+
          <label for="email">Email</label>
          <input type="email" name="email" class="form-control" placeholder="Input your username..." value="<?php if (isset($email)) { echo htmlspecialchars($email);} ?>">
-         <p class="error"></p>
+         <p class="error"><?php if(isset($errors['create_email'])) {echo $errors['create_email'];} ?></p>
+
          <label for="password1">Password</label>
          <input type="password" name="password1" class="form-control" placeholder="Input your username..."value="">
          <p class="error"></p>
