@@ -1,4 +1,26 @@
-<?php include 'includes/header.php'; ?>
+<?php include 'includes/header.php';
+
+if(isset($_POST['submit'])) {
+  $title = $_POST['title'];
+  $body = $_POST['body'];
+  $user_id = $_SESSION['user_id'];
+
+  if($title != '' && $body != '') {
+    $sql = "INSERT INTO posts (post_title, post_body, post_author) VALUES (?,?,?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssi", $title, $body, $user_id);
+    $stmt->execute();
+    if($stmt->affected_rows == 1) {
+      $location = "Location: post.php?id=".$stmt->insert_id . "&created=true";
+      header($location);
+    }
+
+  } else {
+    $errorMsg = "Make sure to input conent in both the title and post!";
+  }
+}
+
+?>
 
 <div class="container">
   <div class="row">
