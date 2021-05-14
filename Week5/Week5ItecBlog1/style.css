@@ -3,3 +3,8 @@
   background-size: cover;
   background-attachment: fixed;
 }
+
+.error {
+    color: red;
+    font-style: italic;
+}

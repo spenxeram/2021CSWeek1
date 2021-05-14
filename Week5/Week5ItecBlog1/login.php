@@ -1,11 +1,20 @@
 <?php
 include 'includes/header.php';
-
+$errors = [];
 if(isset($_POST['create'])) {
   $username = $_POST['username'];
   $email = $_POST['email'];
   $password1 = $_POST['password1'];
   $password2 = $_POST['password2'];
+
+  // check username is not empty and doesn't exist in the db already
+  if(strlen($username) < 5) {
+    $errorMsg = "Username must be more than 5 characters!";
+    $errors['create_username'] = $errorMsg;
+  }
+
+
+
 
 }
  ?>
