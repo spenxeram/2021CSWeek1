@@ -23,6 +23,10 @@ if(isset($_POST['create'])) {
       }
     }
     // #2 validate email
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $errorMsg = "Invalid email!";
+      $errors['create_email'] = $errorMsg;
+    }
 
     // #3 check pw length and matching
 
@@ -51,7 +55,7 @@ if(isset($_POST['create'])) {
 
         <label for="email">Email</label>
         <input type="email" name="email" class="form-control" placeholder="Input your username..." value="<?php if (isset($email)) { echo htmlspecialchars($email);} ?>">
-        <p class="error"></p>
+        <p class="error"><?php if(isset($errors['create_email'])) { echo $errors['create_email'];} ?></p>
         <label for="password1">Password</label>
         <input type="password" name="password1" class="form-control" placeholder="Input your username..."value="">
         <p class="error"></p>
