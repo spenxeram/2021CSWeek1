@@ -37,12 +37,11 @@ var_dump($_SESSION);
                 </ul>
                 <ul class="navbar-nav float-right">
                   <?php if ($_SESSION['loggedin'] == true): ?>
-                    <li class="nav-item active"> <i class="fa fa-user"></i>
-                        <a class="nav-link" href="user.php"> <?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active"> | </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="logout.php">Logout</a>
+                        <a class="nav-link" href="user.php"> <i class="fa fa-user"></i> <?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="logout.php">| Logout</a>
                     </li>
                   <?php else: ?>
                     <li class="nav-item active">

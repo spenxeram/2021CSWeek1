@@ -8,6 +8,15 @@
     </div>
 
     <div class="container">
+      <?php if (isset($_GET['logout'])): ?>
+        <div class="alert alert-success" role="alert">
+          You have logged out successfully.
+        </div>
+      <?php elseif(isset($_GET['login'])): ?>
+        <div class="alert alert-success" role="alert">
+          You have logged in successfully.
+        </div>
+      <?php endif; ?>
       <h2>Recent Articles</h2>
       <div class="row">
         <div class="col-md-4">
