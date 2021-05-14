@@ -1,7 +1,28 @@
 <?php
 include 'includes/header.php';
+if(isset($_POST['submit'])) {
+  $title = $_POST['title'];
+  $body = $_POST['body'];
+  if($body != '' && $title != '') {
+    $sql = "INSERT INTO posts (post_title, post_body, post_author) VALUES (?,?,?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssi", $title, $body, $_SESSION['user_id']);
+    $stmt->execute();
+    if($stmt->affected_rows == 1) {
+      $location = "Location: post.php?id=" . $stmt->insert_id . "&created=true";
+      header($location);
+    }
+
+
+  } else {
+    $errorMsg = "Please fill out all fields!";
+  }
+
+}
+
  ?>
 <div class="container">
+
   <div class="row">
     <?php if ($_SESSION['loggedin'] == false): ?>
       <div class="mt-5 col-md-6 offset-md-3 text-center">
@@ -11,6 +32,11 @@ include 'includes/header.php';
       </div>
     <?php else: ?>
       <div class="mt-3 col-md-6 offset-md-3">
+        <?php if (isset($errorMsg)): ?>
+          <div class="alert alert-danger" role="alert">
+            <?php echo $errorMsg; ?>
+          </div>
+        <?php endif; ?>
         <h2>Create a post~</h2>
         <form class="" action="create.php" method="post">
           <label for="title">Post Title</label>
