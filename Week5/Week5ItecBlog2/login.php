@@ -32,9 +32,27 @@ if(isset($_POST['create'])) {
       $errorMsg = "Password is too short or does not match!";
       $errors['create_password'] = $errorMsg;
     }
-
     // #4 if everything is good ie $errors[] = empty, then
     // add a new user to the db and log them in
+    if(empty($errors)) {
+      $hash = password_hash($password1, PASSWORD_DEFAULT);
+      $sql = "INSERT INTO users (user_name, user_email, user_hash) VALUES (?,?,?)";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("sss", $username, $email, $hash);
+      $stmt->execute();
+      if($stmt->affected_rows == 1) {
+        $_SESSION['loggedin'] = true;
+        $_SESSION['user_name'] = $username;
+        $_SESSION['user_id'] = $stmt->insert_id;
+        $_SESSION['user_role'] = 2;
+        header("Location: index.php?login=success");
+
+      } else {
+        // code...
+      }
+    }
+
+
 }
 
  ?>
