@@ -27,8 +27,11 @@ if(isset($_POST['create'])) {
       $errorMsg = "Invalid email!";
       $errors['create_email'] = $errorMsg;
     }
-
     // #3 check pw length and matching
+    if(strlen($password1) < 5 || $password1 != $password2) {
+      $errorMsg = "Password is too short or does not match!";
+      $errors['create_password'] = $errorMsg;
+    }
 
     // #4 if everything is good ie $errors[] = empty, then
     // add a new user to the db and log them in
@@ -61,7 +64,7 @@ if(isset($_POST['create'])) {
         <p class="error"></p>
         <label for="password2">Confirm Password</label>
         <input type="password" name="password2" class="form-control" placeholder="Input your username..."value="">
-        <p class="error"></p>
+        <p class="error"><?php if(isset($errors['create_password'])) { echo $errors['create_password'];} ?></p>
         <button type="submit" name="create" class="btn btn-outline-success">Create Account</button>
       </form>
     </div>
