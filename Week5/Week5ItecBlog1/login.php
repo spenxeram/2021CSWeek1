@@ -11,6 +11,20 @@ if(isset($_POST['create'])) {
   if(strlen($username) < 5) {
     $errorMsg = "Username must be more than 5 characters!";
     $errors['create_username'] = $errorMsg;
+  } else {
+    $sql = "SELECT * FROM users WHERE user_name = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $results = $stmt->get_result();
+    // check num_rows to see if username is taken
+    // throw error if num_rows == 1
+    if($results->num_rows == 1) {
+      $errorMsg = "This username is taken, please use another!";
+      $errors['create_username'] = $errorMsg;
+    }
+
+
   }
 
 
