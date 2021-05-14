@@ -1,10 +1,15 @@
 .jumbotron {
-  background: url(https://i.pinimg.com/originals/b7/cd/5f/b7cd5f4b3eb91bc06ac4f790f019b323.jpg);
+  background: url("https://img5.goodfon.com/wallpaper/nbig/3/98/abstraktnyi-geometricheskii-linii-background-fon.jpg");
   background-size: cover;
   background-attachment: fixed;
+  text-shadow: 1px 1px 1px black;
 }
 
 .error {
-  color:red;
-  font-style: italic;
+    color: red;
+    font-style: italic;
+}
+
+button a {
+  color: white !important;
 }

@@ -1,14 +1,34 @@
 <?php
 include 'includes/header.php';
 $errors = [];
-
-
 if(isset($_POST['create'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
 
+    // #1 check user name length and is unique
+    if(strlen($username) < 5) {
+      $errorMsg = "Username must be 5 or more characters!";
+      $errors['create_username'] = $errorMsg;
+    } else {
+      $sql = "SELECT * FROM users WHERE user_name = ?";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("s", $username);
+      $stmt->execute();
+      $results = $stmt->get_result();
+      if($results->num_rows == 1) {
+        $errorMsg = "Username is already taken!";
+        $errors['create_username'] = $errorMsg;
+      }
+    }
+    // #2 validate email
+
+    // #3 check pw length and matching
+
+    // #4 if everything is good ie $errors[] = empty, then
+    // add a new user to the db and log them in
+}
 
  ?>
 
@@ -26,7 +46,9 @@ if(isset($_POST['create'])) {
         <label for="username">Username</label>
         <input type="text" name="username" class="form-control" placeholder="Input your username..." value="<?php if (isset($username)) {
           echo htmlspecialchars($username);}?>">
+
         <p class="error"><?php if(isset($errors['create_username'])) {echo $errors['create_username'];} ?></p>
+
         <label for="email">Email</label>
         <input type="email" name="email" class="form-control" placeholder="Input your username..." value="<?php if (isset($email)) { echo htmlspecialchars($email);} ?>">
         <p class="error"></p>
