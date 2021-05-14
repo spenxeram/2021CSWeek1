@@ -1,4 +1,5 @@
 <?php
+session_start();
 if(!isset($_SESSION['loggedin'])) {
   $_SESSION['loggedin'] = false;
 }
@@ -36,9 +37,10 @@ var_dump($_SESSION);
                 </ul>
                 <ul class="navbar-nav float-right">
                   <?php if ($_SESSION['loggedin'] == true): ?>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="user.php"><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
+                    <li class="nav-item active"> <i class="fa fa-user"></i>
+                        <a class="nav-link" href="user.php"> <?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item active"> | </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="logout.php">Logout</a>
                     </li>
