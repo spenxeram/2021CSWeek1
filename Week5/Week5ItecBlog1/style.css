@@ -9,3 +9,7 @@
     color: red;
     font-style: italic;
 }
+
+button a {
+  color: white !important;
+}
