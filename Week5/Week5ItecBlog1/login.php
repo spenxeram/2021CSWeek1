@@ -1,6 +1,34 @@
 <?php
 include 'includes/header.php';
 $errors = [];
+
+if(isset($_POST['login'])) {
+  $username = $_POST['name'];
+  $password = $_POST['password'];
+
+  // #1 check that username exists, get row if it does
+  $sql = "SELECT * FROM users WHERE user_name = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("s", $username);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  if($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+    if(password_verify($password, $row['user_hash'])) {
+
+    } else {
+      $errorMsg = "Password incorrect!";
+      $errors['login_password'] = $errorMsg;
+    }
+  } else {
+    $errorMsg = "User not found!";
+    $errors['login_username'] = $errorMsg;
+  }
+
+
+}
+
+
 if(isset($_POST['create'])) {
   $username = $_POST['username'];
   $email = $_POST['email'];
