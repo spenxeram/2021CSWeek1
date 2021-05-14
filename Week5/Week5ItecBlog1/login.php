@@ -7,46 +7,7 @@ if(isset($_POST['create'])) {
   $password1 = $_POST['password1'];
   $password2 = $_POST['password2'];
 
-  // first check if username already exists -> error
-
-  $sql = "SELECT * FROM users WHERE user_name = ?";
-  // prepare the statemetn
-  $stmt = $conn->prepare($sql);
-  // bind params
-  $stmt->bind_param("s", $username);
-  // execute the statement
-  $stmt->execute();
-  // fetch result
-  $result = $stmt->get_result();
-  if($result->num_rows != 1) {
-    if(filter_var($email, FILTER_VALIDATE_EMAIL) && $password1 == $password2) {
-      // CREATE USER AND LOG in
-      $hash = password_hash($password1, PASSWORD_DEFAULT);
-      $sql = "INSERT INTO users (user_name, user_email, user_hash) VALUES (?,?,?)";
-      $stmt = $conn->prepare($sql);
-      // bind params
-      $stmt->bind_param("sss", $username, $email, $hash);
-      // execute the statement
-      $stmt->execute();
-
-      $_SESSION['loggedin'] = true;
-      $_SESSION['username'] = $username;
-      header("Location: index.php");
-
-    } else {
-      $error = "danger";
-      $errorMsg = "Password or email failed";
-    }
-
-
-  } else {
-    $error = "danger";
-    $errorMsg = "Username already exists, try a different name";
-  }
-
-
 }
-
  ?>
 
  <div class="container mt-3">
