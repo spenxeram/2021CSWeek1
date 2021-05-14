@@ -15,7 +15,12 @@ if(isset($_POST['login'])) {
   if($result->num_rows == 1) {
     $row = $result->fetch_assoc();
     if(password_verify($password, $row['user_hash'])) {
-
+      // if passwords match login
+      $_SESSION['loggedin'] = true;
+      $_SESSION['username'] = $row['user_name'];
+      $_SESSION['user_id'] = $row['ID'];
+      header("Location: index.php?login=true");
+      
     } else {
       $errorMsg = "Password incorrect!";
       $errors['login_password'] = $errorMsg;
