@@ -1,80 +1,13 @@
 <?php
 include 'includes/header.php';
 $errors = [];
-if(isset($_POST['login'])) {
-  $name = $_POST['name'];
-  $password = $_POST['password'];
 
-  $sql = "SELECT * FROM users WHERE user_name = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("s", $name);
-  $stmt->execute();
-  $results = $stmt->get_result();
-
-  if ($results->num_rows == 1) {
-    $row = $results->fetch_assoc();
-
-    if(password_verify($password, $row['user_hash'])) {
-      $_SESSION['loggedin'] = true;
-      $_SESSION['username'] = $row['user_name'];
-      header("Location: index.php?login=true");
-    } else {
-
-      $errorMsg = "Passwords don't match!";
-      $errors['login_password'] = $errorMsg;
-    }
-  } else {
-    $errorMsg = "Username not found!";
-    $errors['login_username'] = $errorMsg;
-  }
-  var_dump($errors);
-  if (!empty($errors)) {
-    echo "Oh no there are errors!";
-  }
-}
 
 if(isset($_POST['create'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
-  // Checl that username !empty, > 5 char,  does not already exist
-  if(strlen($username) < 5) {
-    $errorMsg = "Username is too short!";
-    $errors['create_username'] = $errorMsg;
-  } else {
-    $sql = "SELECT * FROM users WHERE user_name = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $results = $stmt->get_result();
-
-    if($results->num_rows == 1) {
-        $errorMsg = "Username already exists!";
-        $errors['create_username'] = $errorMsg;
-     } else {
-       if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-         $errorMsg = "Email is invalid";
-       } elseif(strlen($password1) < 5 || $password1 != $password2) {
-         $errorMsg = "Password is too short or doesn't match!";
-       } else {
-         $hash = password_hash($password1, PASSWORD_DEFAULT);
-         $sql = "INSERT INTO users (user_name, user_email, user_hash) VALUES (?,?,?)";
-         $stmt = $conn->prepare($sql);
-         $stmt->bind_param("sss", $username,$email, $hash);
-         $stmt->execute();
-
-         if($stmt->affected_rows == 1) {
-           //log user in and redirect to homepage
-           $_SESSION['loggedin'] = true;
-           $_SESSION['username'] = $username;
-           header("Location: index.php?login=true");
-         }
-
-       }
-    }
-   }
-  }
 
 
  ?>
