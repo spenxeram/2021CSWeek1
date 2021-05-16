@@ -71,7 +71,6 @@ function checkCreate($post, &$errors, $conn) {
 
 //query the DB to see if a user exists. returns num_rows
 function checkForUser($username, $conn) {
-  global $conn;
   $sql = "SELECT * FROM users WHERE user_name = ?";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("s", $username);
@@ -82,7 +81,6 @@ function checkForUser($username, $conn) {
 
 // fetch a user from the DB based on username
 function getUserRow($username, $conn) {
-  global $conn;
   $sql = "SELECT * FROM users WHERE user_name = ?";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("s", $username);
