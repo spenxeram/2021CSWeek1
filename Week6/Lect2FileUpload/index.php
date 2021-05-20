@@ -21,9 +21,20 @@
 
 
     <div class="container">
+      <hr>
       <div class="row">
         <div class="col-md-8 offset-md-2">
           <h3 class="display-4">Upload Carousel Images</h3>
+          <hr>
+          <form class="" action="index.php" method="post" enctype="multipart/form-data">
+            <label for="caption">Caption</label>
+            <input type="text" class="form-control" name="caption" value="" placeholder="Carousel caption here...">
+            <label for="img">Carousel Image</label>
+            <input type="file" name="img" class="form-control" value="">
+
+            <button type="submit" name="submit" class="btn btn-block btn-outline-primary">Create New Carousel Image</button>
+          </form>
+
         </div>
       </div>
     </div>
