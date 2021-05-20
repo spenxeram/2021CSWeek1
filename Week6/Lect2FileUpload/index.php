@@ -1,3 +1,10 @@
+<?php
+$errors = [];
+
+ ?>
+
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -22,7 +29,20 @@
 
     <div class="container">
       <hr>
+      <?php if (!empty($errors)): ?>
+        <div class="alert alert-danger" role="alert">
+          <?php
+          $erroutput = "";
+
+          foreach ($errors as $key => $val) {
+            $erroutput.=  " " . $val . " ";
+          }
+          echo $erroutput;
+           ?>
+        </div>
+      <?php endif; ?>
       <div class="row">
+
         <div class="col-md-8 offset-md-2">
           <h3 class="display-4">Upload Carousel Images</h3>
           <hr>
@@ -34,8 +54,11 @@
 
             <button type="submit" name="submit" class="btn btn-block btn-outline-primary">Create New Carousel Image</button>
           </form>
-
+          <?php
+          var_dump($GLOBALS);
+           ?>
         </div>
+
       </div>
     </div>
 
