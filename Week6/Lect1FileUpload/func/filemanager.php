@@ -1,10 +1,8 @@
 <?php
-$errors = [];
 
-
+// takes a file, validates it and returns the img location if successful
 function validateFile($file, &$errors) {
-  $caption = $_POST['caption'];
-  $file = $_FILES['image'];
+  $file = $file['image'];
   $fname = $file['name'];
   $ftype = $file['type'];
   $tmp_name = $file['tmp_name'];
@@ -29,17 +27,15 @@ function validateFile($file, &$errors) {
     $errors['size'] = "The file size is too large!";
   }
 
-
+  // if there are no file errors, move the file to final Destination
+  // and return that destination
   if(empty($errors)) {
-    $img_location = move_file($fext, $temp_name);
-    create_gallery_row($img_location, $caption)
+    return move_file($fext, $tmp_name);
     }
   }
 
-}
-
-
-function move_file($fext, $temp) {
+// moves validated file from temp to project dir, returns that path
+function move_file($fext, $tmp) {
   $fnewname = uniqid('', true) . "." . $fext;
   $new_dir = "images/" . $fnewname;
   if(move_uploaded_file($tmp, $new_dir)) {
@@ -48,21 +44,3 @@ function move_file($fext, $temp) {
     return false;
   }
 }
-
-if(isset($_POST['submit'])) {
-
-
-
-
-
-
-
-
-
-  var_dump($errors);
-
-}
-
-
-
- ?>

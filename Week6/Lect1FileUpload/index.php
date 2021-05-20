@@ -1,13 +1,35 @@
 <?php
-
+include 'func/db.php';
+include 'func/gallerymanager.php';
 include 'func/filemanager.php';
-
+$errors = [];
+if (isset($_POST['submit'])) {
+  $caption = $_POST['caption'];
+  createGalleryItem($conn, $caption, $_FILES, $errors);
+}
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>ITEC Img Gallery</title>
+    <style media="screen">
+    img {
+  max-width: 100%;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 3%;
+  width: 90%;
+  margin: 30px auto;
+}
+* {
+  font-family: sans-serif;
+  font-weight: lighter;
+}
+    </style>
   </head>
   <body>
     <h2>ITEC Image Gallery</h2>
@@ -20,12 +42,11 @@ include 'func/filemanager.php';
 
       <button type="submit" name="submit">Submit</button>
     </form>
+    <div class="gallery">
+      <?php
+        getGallery($conn);
+       ?>
+    </div>
 
-    <?php
-
-    var_dump($_FILES);
-
-    var_dump($_POST);
-     ?>
   </body>
 </html>

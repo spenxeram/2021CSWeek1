@@ -1,27 +1,29 @@
 <?php
+
+// dates a file, validates it and returns the img location if successful
 function validateFile($file,$type, $maxsize = 5000000) {
-$file = array_values($_FILES);
-$file = $file[0];
-$fname = explode(".",$file['name']);
-$ftype = $file['type'];
-$fsize = $file['size'];
-$ftemp = $file['tmp_name'];
-$ferror = $file['error'];
-$allowed_ext = getAllowedExt($type);
-$fext = strtolower(end($fname));
-  if(in_array($fext, $allowed_ext)) {
-    if($ferror === 0) {
-      if($fsize < $maxsize) {
-        return moveFile($fname, $fext, $ftemp);
+  $file = array_values($_FILES);
+  $file = $file[0];
+  $fname = explode(".",$file['name']);
+  $ftype = $file['type'];
+  $fsize = $file['size'];
+  $ftemp = $file['tmp_name'];
+  $ferror = $file['error'];
+  $allowed_ext = getAllowedExt($type);
+  $fext = strtolower(end($fname));
+    if(in_array($fext, $allowed_ext)) {
+      if($ferror === 0) {
+        if($fsize < $maxsize) {
+          return moveFile($fname, $fext, $ftemp);
+        } else {
+          return false;
+        }
       } else {
         return false;
       }
     } else {
       return false;
     }
-  } else {
-    return false;
-  }
 }
 
 
