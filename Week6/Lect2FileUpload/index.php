@@ -1,85 +1,14 @@
 <?php
-include 'db.php';
+include 'func/db.php';
+include 'func/carouselmanager.php';
+include 'func/filemanager.php';
 $errors = [];
 if(isset($_POST['submit'])) {
   $caption = $_POST['caption'];
-  $file = $_FILES['img'];
-  $fname = $file['name'];
-  $ftype = $file['type'];
-  $ftemp = $file['tmp_name'];
-  $ferr = $file['error'];
-  $fsize = $file['size'];
-  $allowed_ext = ['png', 'jpeg', 'jpg'];
-
-  // check to ensure there is no error with the upload
-  if($ferr != 0) {
-    $errors['ferr'] = "File error.";
-  }
-
-  // explore the filetype and check the type and extension
-  $ftype = explode("/", $ftype);
-  if($ftype[0] != "image" || !in_array(end($ftype), $allowed_ext)) {
-    $errors['ftype'] = "Only images can be uploaded.";
-  }
-
-  // check filesize
-  if($fsize > 5000000) {
-    $errors['fsize'] = "File too large.";
-  }
-
-  if(empty($errors)) {
-    $new_filename = uniqid('', true) . "." . end($ftype);
-    $new_dest = "images/" . $new_filename;
-    if(move_uploaded_file($ftemp, $new_dest)) {
-      $sql = "INSERT INTO carousel (caption, image) VALUES (?,?)";
-      $stmt = $conn->prepare($sql);
-      $stmt->bind_param("ss", $caption, $new_dest);
-      $stmt->execute();
-      if($stmt->affected_rows == 1) {
-        $errors["success"] = "Carousel image added successfully!";
-      }
-    }
-  }
-
-}
-
-function getSlides($conn) {
-  $sql = "SELECT * FROM carousel";
-  $results = $conn->query($sql);
-  $rows = $results->fetch_all(MYSQLI_ASSOC);
-  return $rows;
+  createCarousel($caption, $_FILES, $errors, $conn);
 }
 
 $slides = getSlides($conn);
-
-function outputIndicators($num_slides) {
-  for ($i=0; $i < $num_slides ; $i++) {
-    if($i == 0) {
-      $class = 'class="active"';
-    } else {
-      $class = "";
-    }
-    echo '<li data-target="#carouselExampleIndicators" data-slide-to="' . $i . '"
-    ' . $class . '></li>';
-  }
-}
-
-function outputCarousel($slides) {
-  for ($i=0; $i < count($slides) ; $i++) {
-    if($i == 0) {
-      $class = 'active"';
-    } else {
-      $class = "";
-    }
-    echo '<div class="carousel-item '. $class . '">
-      <img class="d-block w-100" src="' . $slides[$i]['image'] .'" alt="First slide">
-      <div class="carousel-caption d-none d-md-block">
-       <p>' . $slides[$i]['caption'] .'</p>
-     </div>
-    </div>';
-  }
-}
-
 
  ?>
 
