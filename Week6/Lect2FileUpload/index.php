@@ -43,11 +43,45 @@ if(isset($_POST['submit'])) {
 
 }
 
+function getSlides($conn) {
+  $sql = "SELECT * FROM carousel";
+  $results = $conn->query($sql);
+  $rows = $results->fetch_all(MYSQLI_ASSOC);
+  return $rows;
+}
+
+$slides = getSlides($conn);
+
+function outputIndicators($num_slides) {
+  for ($i=0; $i < $num_slides ; $i++) {
+    if($i == 0) {
+      $class = 'class="active"';
+    } else {
+      $class = "";
+    }
+    echo '<li data-target="#carouselExampleIndicators" data-slide-to="' . $i . '"
+    ' . $class . '></li>';
+  }
+}
+
+function outputCarousel($slides) {
+  for ($i=0; $i < count($slides) ; $i++) {
+    if($i == 0) {
+      $class = 'active"';
+    } else {
+      $class = "";
+    }
+    echo '<div class="carousel-item '. $class . '">
+      <img class="d-block w-100" src="' . $slides[$i]['image'] .'" alt="First slide">
+      <div class="carousel-caption d-none d-md-block">
+       <p>' . $slides[$i]['caption'] .'</p>
+     </div>
+    </div>';
+  }
+}
 
 
  ?>
-
-
 
 <!doctype html>
 <html lang="en">
@@ -56,6 +90,17 @@ if(isset($_POST['submit'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style media="screen">
+      .carousel-item {
+        height: 50vh;
+      }
+
+      .carousel-item img {
+        object-fit: cover !important;
+        height: 100%;
+      }
+    </style>
+
   </head>
   <body>
     <!-- fixed-top | sticky-top | fixed-bottom -->
@@ -66,7 +111,26 @@ if(isset($_POST['submit'])) {
     </nav>
     <!-- carousel will go here -->
 
-
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <?php
+          outputIndicators(count($slides));
+         ?>
+      </ol>
+      <div class="carousel-inner">
+        <?php
+          outputCarousel($slides)
+         ?>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
 
     <!-- end of carousel  -->
 
