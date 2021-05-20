@@ -1,7 +1,7 @@
 <?php
 
 // dates a file, validates it and returns the img location if successful
-function validateFile($file,$type, $maxsize = 5000000) {
+function validateFile($file, $type, $maxsize = 5000000) {
   $file = array_values($_FILES);
   $file = $file[0];
   $fname = explode(".",$file['name']);

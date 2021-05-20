@@ -6,7 +6,10 @@ $errors = [];
 if (isset($_POST['submit'])) {
   $caption = $_POST['caption'];
   createGalleryItem($conn, $caption, $_FILES, $errors);
+  var_dump($_FILES);
 }
+
+
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -25,6 +28,7 @@ if (isset($_POST['submit'])) {
   width: 90%;
   margin: 30px auto;
 }
+
 * {
   font-family: sans-serif;
   font-weight: lighter;
