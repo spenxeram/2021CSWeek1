@@ -1,0 +1,7 @@
+CREATE TABLE `week6_lect2`.`carousel` (
+  `ID` INT NOT NULL AUTO_INCREMENT ,
+  `caption` VARCHAR(255) NOT NULL ,
+  `image` VARCHAR(255) NOT NULL ,
+  `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`ID`)
+) 

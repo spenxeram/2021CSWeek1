@@ -1,4 +1,5 @@
 <?php
+include 'db.php';
 $errors = [];
 if(isset($_POST['submit'])) {
   $caption = $_POST['caption'];
@@ -17,7 +18,7 @@ if(isset($_POST['submit'])) {
 
   // explore the filetype and check the type and extension
   $ftype = explode("/", $ftype);
-  if($ftype[0] != "image" && !in_array(end($ftype), $allowed_ext)) {
+  if($ftype[0] != "image" || !in_array(end($ftype), $allowed_ext)) {
     $errors['ftype'] = "Only images can be uploaded.";
   }
 
@@ -28,15 +29,17 @@ if(isset($_POST['submit'])) {
 
   if(empty($errors)) {
     $new_filename = uniqid('', true) . "." . end($ftype);
-
     $new_dest = "images/" . $new_filename;
-    var_dump($new_dest);
     if(move_uploaded_file($ftemp, $new_dest)) {
-      $errors['success'] = "Your file was moved successfully!";
+      $sql = "INSERT INTO carousel (caption, image) VALUES (?,?)";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("ss", $caption, $new_dest);
+      $stmt->execute();
+      if($stmt->affected_rows == 1) {
+        $errors["success"] = "Carousel image added successfully!";
+      }
     }
   }
-
-
 
 }
 
@@ -70,7 +73,11 @@ if(isset($_POST['submit'])) {
 
     <div class="container">
       <hr>
-      <?php if (!empty($errors)): ?>
+      <?php if (isset($errors['success'])): ?>
+        <div class="alert alert-success" role="alert">
+          <?php echo $errors['success']; ?>
+        </div>
+      <?php elseif (!empty($errors)): ?>
         <div class="alert alert-danger" role="alert">
           <?php
           $erroutput = "";
@@ -96,7 +103,7 @@ if(isset($_POST['submit'])) {
             <button type="submit" name="submit" class="btn btn-block btn-outline-primary">Create New Carousel Image</button>
           </form>
           <?php
-          var_dump($GLOBALS);
+
            ?>
         </div>
 
