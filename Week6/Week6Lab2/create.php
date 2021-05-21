@@ -6,8 +6,18 @@ $errors = [];
 if(isset($_POST['submit'])) {
   $title = $_POST['title'];
   $body = $_POST['body'];
-
+  // check post doesnt return true or false
+  // it updates the $errors[] if  there is an error
   checkPost($title, $body, $errors);
+  // check file returns false if there is an error or
+  // the new image path if successful
+  // it also updates the $errors[] if  there is an error
+  $img_path = checkFile($_FILES, "image", $errors);
+
+  // create the post if there are no $errors
+  if(empty($errors)) {
+      // create the post
+  }
 
 }
 include 'includes/header.php';
