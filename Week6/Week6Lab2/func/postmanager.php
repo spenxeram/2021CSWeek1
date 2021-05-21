@@ -32,3 +32,12 @@ function getPost($id, $conn) {
     return false;
   }
 }
+
+// create these two functions and call them on the homepage
+function getPosts($limit, $offset, $conn) {
+
+}
+
+function outputPosts($posts) {
+
+}

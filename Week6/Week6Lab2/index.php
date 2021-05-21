@@ -1,6 +1,7 @@
 <?php
 include 'func/config.php';
 include 'func/postmanager.php';
+include 'func/ajax.php';
 include 'includes/header.php';
  ?>
     <div class="jumbotron jumbotron-fluid text-white">
