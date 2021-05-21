@@ -4,6 +4,10 @@ include 'func/postmanager.php';
 include 'func/filemanager.php';
 $errors = [];
 if(isset($_POST['submit'])) {
+  $title = $_POST['title'];
+  $body = $_POST['body'];
+
+  checkPost($title, $body, $errors);
 
 }
 include 'includes/header.php';
@@ -31,11 +35,12 @@ include 'includes/header.php';
           <input type="text" name="title" placeholder="Post title..." value="" class="form-control">
           <label for="body">Post Content</label>
           <textarea name="body" class="form-control" rows="8" cols="80"></textarea>
+          <input type="file" name="image" class="form-control mt-1 mb-1" value="">
           <button type="submit" name="submit" class="btn btn-outline-dark btn-block"> <i class="fas fa-edit"></i> Create Post</button>
         </form>
       </div>
       <?php
-
+        var_dump($GLOBALS);
        ?>
     <?php endif; ?>
   </div>
