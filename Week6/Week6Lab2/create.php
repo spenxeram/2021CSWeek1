@@ -15,8 +15,9 @@ if(isset($_POST['submit'])) {
   $img_path = checkFile($_FILES, "image", $errors);
 
   // create the post if there are no $errors
-  if(empty($errors)) {
+  if(empty($errors) && $img_path != false) {
       // create the post
+      createPost($title, $body, $img_path, $conn);
   }
 
 }
