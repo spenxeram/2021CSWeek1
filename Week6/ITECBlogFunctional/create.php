@@ -3,7 +3,7 @@ include 'func/config.php';
 include 'func/postmanager.php';
 include 'func/filemanager.php';
 if(isset($_POST['submit'])) {
-  checkPost($_POST, $_FILES, $errors,$conn);
+  checkPost($_POST, $_FILES, $errors, $conn);
 }
 include 'includes/header.php';
 
