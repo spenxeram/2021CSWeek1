@@ -9,7 +9,7 @@ if(isset($_POST['submit'])) {
   //valide the post text content
   checkPost($title, $body, $errors);
   // validate the file and return the img path or an error
-  //$img_path = checkFile($_FILES, "image", $errors);
+  $img_path = checkFile($_FILES, "image", $errors);
 
   if(empty($errors)) {
     //createPost($caption, $body, $img_path, $conn);
