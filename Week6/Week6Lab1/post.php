@@ -1,63 +1,31 @@
 <?php
 include 'func/config.php';
+include 'func/postmanager.php';
 include 'includes/header.php';
 if(isset($_GET['id'])) {
-  $sql = "SELECT post_title, post_img, post_body, posts.date_created, users.user_name, users.ID AS author_id, posts.ID FROM posts JOIN users ON users.ID = posts.post_author WHERE posts.ID = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("i", $_GET['id']);
-  $stmt->execute();
-  $results = $stmt->get_result();
-  if($results->num_rows == 1) {
-    $row = $results->fetch_assoc();
-    $title = $row['post_title'];
-    $body = $row['post_body'];
-    $author_id = $row['author_id'];
-    $author = $row['user_name'];
-    $date = $row['date_created'];
-    $img = $row['post_img'];
-  } else {
-    $errorMsg = "Post not found!";
-  }
+  $post = getPost($_GET['id'], $conn);
 }
-echo $img;
  ?>
+<hr>
+<div class="container post">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
 
-  <div class="jumbotron">
-    <div class="container text-white">
-      <?php if (isset($title)): ?>
-      <h1 class="display-3">
-        <?php echo htmlspecialchars($title); ?>
-      </h1>
-        <p class="lead">
-          <?php echo htmlspecialchars($date); ?>
-        </p>
-        <p class="lead">
-          <a href="user.php?id=<?php echo htmlspecialchars($author_id); ?>">
-          <?php echo htmlspecialchars($author); ?>
-          </a>
-        </p>
+      <?php if ($post == false): ?>
+        <h2 class="display-3">404 Post Not Found</h2>
       <?php else: ?>
-        <h1 class="display-3">
-          <?php echo $errorMsg; ?>
-        </h1>
-      <?php endif; ?></h1>
-    </div>
-  </div>
-  <div class="container">
-    <?php if (isset($_GET['created'])): ?>
-      <div class="alert alert-success" role="alert">
-        Your post was successfully created!
-      </div>
-    <?php endif; ?>
-    <div class="row">
-      <p>
-      <?php if (isset($body)): ?>
-        <?php echo htmlspecialchars($body); ?>
+        <img src="<?php echo $post['post_img']; ?>" class="img-fluid" alt="">
+        <h2 class="diplay-4"><?php echo htmlspecialchars($post['post_title']); ?></h2>
+        <h4><em><?php htmlspecialchars($post['date_created']); ?> </em></h4>
+        <p><?php echo htmlspecialchars($post['post_body']); ?></p>
       <?php endif; ?>
-      </p>
+
     </div>
   </div>
+</div>
 
+
+<hr>
  <?php
  include 'includes/footer.php';
   ?>

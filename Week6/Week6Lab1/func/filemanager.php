@@ -27,14 +27,14 @@ function checkFile($file, $type, &$errors) {
         return $new_path;
       } else {
         $errors['fupload'] = "File move failed.";
+        return false;
       }
-
+    } else {
+      return false;
     }
-
-
-
   } else {
     $errors['ferror'] = "There was a file error.";
+    return false;
   }
 }
 
