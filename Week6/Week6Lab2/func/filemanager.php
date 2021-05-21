@@ -10,7 +10,7 @@ function checkFile($file, $type, &$errors, $maxsize = 5000000) {
   $fsize = $file['size'];
   $allowed_ext = fileExt($type);
   if($error == 0) {
-    var_dump($allowed_ext);
+
     // #1 check file ext
     if(!in_array(end($ftype), $allowed_ext) || $type != $ftype[0]) {
       $errors['fext'] = "Only {$type} file types allowed!";
