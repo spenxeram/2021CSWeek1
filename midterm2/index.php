@@ -31,7 +31,7 @@
     </div>
 
     <div class="container">
-      <h3 class="display-4">Planets</h3>
+      <h3 class="display-4">Universities</h3>
       <hr>
       <div class="row">
         <!-- loop through planets and out put here -->
