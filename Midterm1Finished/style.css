@@ -1,0 +1,24 @@
+.front {
+  background: url(images/neb.jpeg);
+  background-size: cover;
+  background-attachment: fixed;
+  text-shadow: 1px 1px 2px black;
+}
+
+footer {
+      background-image: url(http://thenewcode.com/assets/images/final-starfield.png);
+      background-size: contain;
+  }
+
+
+
+.planets {
+    BACKGROUND: url(https://cdn.pixabay.com/photo/2016/06/05/07/59/stars-1436950_960_720.jpg);
+    COLOR: WHITE;
+}
+
+.planet img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
