@@ -1,0 +1,11 @@
+.front {
+  background: url(images/neb.jpeg);
+  background-size: cover;
+  background-attachment: fixed;
+  text-shadow: 1px 1px 2px black;
+}
+
+footer {
+      background-image: url(http://thenewcode.com/assets/images/final-starfield.png);
+      background-size: contain;
+  }
