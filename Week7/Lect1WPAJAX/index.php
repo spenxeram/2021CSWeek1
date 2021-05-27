@@ -12,8 +12,11 @@ include 'includes/header.php';
          <h1 class="display-3">MYSQLi Connect</h1>
          <p class="lead">Query the WordPress Database using MYSQLi</p>
          <form class="" action="search.php" method="post">
-           <input type="text" name="search" class="form-control mt-4 mb-4" placeholder="Search the database..." value="">
+           <input type="text" name="search" class="search form-control mt-4 mb-4" placeholder="Search the database..." value="">
            <button type="submit" class="btn btn-outline-primary" name="submit">Search Database</button>
+           <div class="ajax-output">
+
+           </div>
          </form>
        </div>
      </div>
@@ -33,4 +36,8 @@ include 'includes/header.php';
 
        </div>
      </div>
+
+     <script type="text/javascript" src="main.js">
+
+     </script>
 <?php include 'includes/footer.php'; ?>
