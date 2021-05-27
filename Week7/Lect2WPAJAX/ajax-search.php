@@ -1,6 +1,12 @@
 <?php
-
+include 'db.php';
 if(isset($_GET['q'])) {
-  echo "This is from php: " . $_GET['q'];
+  $request = "%" . $_GET['q'] . "%";
+  $sql = "SELECT * FROM wp_posts WHERE post_title LIKE ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("s", $request);
+  $stmt->execute();
+  $results = $stmt->get_result();
+  echo $results->num_rows;
 }
  ?>

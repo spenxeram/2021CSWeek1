@@ -16,6 +16,9 @@ include 'includes/header.php';
            <button type="submit" class="btn btn-outline-primary" name="submit">Search Database</button>
 
          </form>
+         <div class="ajax-output">
+
+         </div>
        </div>
      </div>
      <div class="container recent-articles">
