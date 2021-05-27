@@ -14,7 +14,7 @@ include 'includes/header.php';
          <form class="" action="search.php" method="post">
            <input type="text" name="search" class="search form-control mt-4 mb-4" placeholder="Search the database..." value="">
            <button type="submit" class="btn btn-outline-primary" name="submit">Search Database</button>
-        
+
          </form>
        </div>
      </div>
@@ -35,7 +35,5 @@ include 'includes/header.php';
        </div>
      </div>
 
-     <script type="text/javascript" src="main.js">
-
-     </script>
+<script src="main.js" charset="utf-8"></script>
 <?php include 'includes/footer.php'; ?>
