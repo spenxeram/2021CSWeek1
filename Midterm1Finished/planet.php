@@ -3,7 +3,7 @@ include 'includes/header.php';
 $error = true;
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
-  $sql = "SELECT * FROM planets WHERE id = ? ORDER BY position";
+  $sql = "SELECT * FROM planets WHERE id = ?";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("s", $id);
   $stmt->execute();

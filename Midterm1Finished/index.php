@@ -12,7 +12,7 @@ if($results->num_rows >= 1) {
     <div class="container">
       <h1 class="display-3"><i class="fas fa-globe-asia"></i> Planets of the Solar System</h1>
       <p class="lead">Create a form to add planets to the Database</p>
-      <button type="button" class="btn btn-lg btn-outline-primary"><a href="create.php">Add a Planet</a></button>
+      <a href="create.php"><button type="button" class="btn btn-lg btn-outline-primary"><i class="fa fa-plus"></i> Add a Planet</button></a>
     </div>
   </div>
     <div class="container">
