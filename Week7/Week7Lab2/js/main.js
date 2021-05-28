@@ -3,18 +3,19 @@ console.log("main js loaded");
 // get needed elements
 let theform = document.querySelector("form.comment-form");
 let thecomment = document.querySelector(".comment-form textarea");
+let hiddeninput = document.querySelector(".comment-form input");
 
 // add event listener, prevent default submission and get
 //textarea value
 
 theform.addEventListener("submit", function(event) {
   event.preventDefault();
-  commentAjax(thecomment.value);
+  commentAjax(thecomment.value, hiddeninput.value);
 })
 
 // ajax request
 
-function commentAjax(comment) {
+function commentAjax(comment, postid) {
 
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "func/commentmanager.php", true);
@@ -27,5 +28,5 @@ function commentAjax(comment) {
     }
   }
 
-  xhr.send("comment="+comment);
+  xhr.send("comment="+comment+"&"+postid);
 }

@@ -31,12 +31,16 @@ if(isset($_GET['id'])) {
        <div class="col-md-8 form">
          <form class="comment-form" method="POST" action="func/commentmanager.php">
            <textarea name="comment" class="form-control" rows="4" cols="80"></textarea>
+           <input type="hidden" name="id" value="<?php echo htmlspecialchars($_SERVER['QUERY_STRING']); ?>">
            <button type="submit" name="comment-submit" class="btn btn-outline-success mt-2"><i class="far fa-comment"></i> Add Comment</button>
          </form>
        </div>
 
 
      </div>
+     <?php var_dump($_SESSION);
+          var_dump($_SERVER);
+      ?>
      <?php endif; ?>
 
  </div>
