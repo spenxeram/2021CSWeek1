@@ -12,14 +12,14 @@ if(isset($_POST['submit'])) {
   $stmt->bind_param("ssis", $title, $body, $user, $date);
   $stmt->execute();
   var_dump($stmt);
-  
+
   $result = $stmt->get_result();
   var_dump($result);
 }
   include 'includes/header.php';
 ?>
 
-<form class="" action="create.php" method="post">
+<form class="" action="a" method="post">
   <button type="submit" name="submit" >Create</button>
 </form>
 

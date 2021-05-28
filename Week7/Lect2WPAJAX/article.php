@@ -50,4 +50,18 @@ include 'includes/header.php';
 
         </div>
       </div>
+      <div class="container">
+        <hr>
+        <h3>Comments</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <form class="" action="ajax-article.php" method="post">
+              <textarea name="name" class="form-control" rows="5" cols="80"></textarea>
+              <button type="submit" name="comment" class="btn btn-dark">Comment</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+      <script src="comment.js" charset="utf-8"></script>
 <?php include 'includes/footer.php'; ?>
