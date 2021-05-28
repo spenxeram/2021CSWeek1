@@ -44,5 +44,12 @@ function getPosts($limit, $conn, $offset = 0) {
 }
 
 function outputPosts($posts) {
-
+  $output = "";
+  foreach ($posts as $post) {
+    $output.= "<div class='col-md-4 post'>
+               <h3><a href='post.php?id={$post['ID']}'>
+               {$post['post_title']}</a></h3>
+               <p>{$post['post_body']}</p></div>";
+  }
+  echo $output;
 }

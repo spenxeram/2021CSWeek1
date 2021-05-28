@@ -28,8 +28,7 @@ include 'includes/header.php';
 
         <?php
         $posts = getPosts(12, $conn);
-        var_dump($posts);
-        //outputPosts($posts);
+        outputPosts($posts);
          ?>
         <hr>
         </div>
