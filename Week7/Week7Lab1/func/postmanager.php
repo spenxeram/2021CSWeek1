@@ -34,8 +34,13 @@ function getPost($id, $conn) {
 }
 
 // create these two functions and call them on the homepage
-function getPosts($limit, $offset, $conn) {
-
+function getPosts($limit, $conn, $offset = 0) {
+  $sql = "SELECT * FROM posts ORDER BY date_created LIMIT ?,?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("ii", $offset, $limit);
+  $stmt->execute();
+  $results = $stmt->get_result();
+  return $results->fetch_all(MYSQLI_ASSOC);
 }
 
 function outputPosts($posts) {
