@@ -34,10 +34,22 @@ function getPost($id, $conn) {
 }
 
 // create these two functions and call them on the homepage
-function getPosts($limit, $offset, $conn) {
-
+function getPosts($limit, $conn, $offset = 0) {
+  $sql = "SELECT * FROM posts LIMIT ?,?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("ii", $offset, $limit);
+  $stmt->execute();
+  $results = $stmt->get_result();
+  return $results->fetch_all(MYSQLI_ASSOC);
 }
 
 function outputPosts($posts) {
-
+  $output = '';
+  foreach ($posts as $post) {
+    $output.= "<div class='col-md-4'>
+               <h3><a href='post.php?id={$post['ID']}'>
+               {$post['post_title']}</a></h3>
+               <p>{$post['post_body']}</p></div>";
+  }
+  echo $output;
 }
