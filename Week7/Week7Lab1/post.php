@@ -25,13 +25,16 @@ if(isset($_GET['id'])) {
       <h4 class="display-4">Add a Comment</h4>
       <div class="row comments">
         <div class="col-md-6 comment">
-          <form class="" action="func/commentmanager.php" method="post">
+          <form class="comment-form" action="func/commentmanager.php" method="post">
             <textarea name="name" class="form-control" rows="4" cols="80" name="comment"></textarea>
+            <input type="hidden" name="post-id" value="<?php echo $_SERVER['QUERY_STRING']; ?>">
             <button type="submit" name="comment-submit" class="btn mt-2 btn-outline-success"><i class="far fa-comment"></i> Add Comment</button>
           </form>
         </div>
       </div>
-
+<?php
+var_dump($_SERVER);
+var_dump($_SESSION); ?>
 
      <?php endif; ?>
 
