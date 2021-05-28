@@ -4,6 +4,7 @@ console.log("main js loaded");
 let theform = document.querySelector("form.comment-form");
 let thecomment = document.querySelector(".comment-form textarea");
 let hiddeninput = document.querySelector(".comment-form input");
+let commentsdiv = document.querySelector(".comments");
 
 // add event listener, prevent default submission and get
 //textarea value
@@ -25,8 +26,23 @@ function commentAjax(comment, postid) {
   xhr.onload = function() {
     if(this.status == 200) {
       console.log(this.responseText);
+      let output = JSON.parse(this.responseText);
+      console.log(output);
+      outputNewComment(output);
     }
   }
 
   xhr.send("comment="+comment+"&"+postid);
+}
+
+// General function
+function outputNewComment(output) {
+  let newdiv = document.createElement("div");
+  newdiv.classList = "col-md-7 mt-2 mb-2";
+  commentsdiv.prepend(newdiv);
+  let theoutput = `<div class="card"><div class="card-header">${output.user_name} | ${output.date_created}</div>
+  <div class="card-body"><p class="card-text">${output.comment_text}</p>
+  </div></div>`;
+  newdiv.innerHTML = theoutput;
+
 }
