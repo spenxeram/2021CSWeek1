@@ -22,7 +22,6 @@ include 'classes/Post.php';
         } elseif (isset($_GET['delete'])) {
           $post = new Post($_GET['delete'], $conn);
           $post->deletePost();
-          
         }
 
          ?>
