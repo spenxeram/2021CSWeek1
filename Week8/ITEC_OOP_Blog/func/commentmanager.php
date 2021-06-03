@@ -2,6 +2,7 @@
 
 if(isset($_POST['delete'])) {
   session_start();
+
   deleteComment($_POST['delete']);
 }
 
@@ -10,6 +11,10 @@ if(isset($_POST['delete'])) {
 if(isset($_POST['comment'])) {
   $errors = [];
   include_once '../config.php';
+
+
+
+
   if(!isset($_SESSION['user_id'])) {
     $errors['userid'] = "User id not set";
   }

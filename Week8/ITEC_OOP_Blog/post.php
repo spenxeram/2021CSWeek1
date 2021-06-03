@@ -1,5 +1,5 @@
 <?php
-include_once 'config.php';
+include 'core/ini.php';
 include 'func/postmanager.php';
 include 'func/commentmanager.php';
 include 'includes/header.php';
@@ -41,7 +41,7 @@ if(isset($_GET['id'])) {
            </form>
          <?php else: ?>
            <h3>Please login to comment!</h3>
-           <a href="login.php"><button type="button" class="btn btn-primary btn-lg">Login</button></a> 
+           <a href="login.php"><button type="button" class="btn btn-primary btn-lg">Login</button></a>
          <?php endif; ?>
 
        </div>

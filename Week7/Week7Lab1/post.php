@@ -1,6 +1,7 @@
 <?php
 include 'func/config.php';
 include 'func/postmanager.php';
+include 'func/commentmanager.php';
 include 'includes/header.php';
 if(isset($_GET['id'])) {
   $post = getPost($_GET['id'], $conn);
@@ -31,10 +32,11 @@ if(isset($_GET['id'])) {
             <button type="submit" name="comment-submit" class="btn mt-2 btn-outline-success"><i class="far fa-comment"></i> Add Comment</button>
           </form>
         </div>
+        <?php
+          $comments = getComments(7);
+          outputComments($comments);
+         ?>
       </div>
-<?php
-var_dump($_SERVER);
-var_dump($_SESSION); ?>
 
      <?php endif; ?>
 
@@ -42,5 +44,6 @@ var_dump($_SESSION); ?>
 
  <hr>
  <?php
+ var_dump($GLOBALS);
  include 'includes/footer.php';
   ?>

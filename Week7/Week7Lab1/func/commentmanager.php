@@ -1,9 +1,7 @@
 <?php
-session_start();
-include '../db.php';
+include '../func/config.php';
 $errors = [];
 if(isset($_POST['comment'])) {
-
   if(!isset($_POST['id'])) {
     $errors['postid'] = "Post Id not set";
   }
@@ -29,7 +27,22 @@ if(isset($_POST['comment'])) {
       }
     }
   }
+}
 
+function getComments($postid) {
+  $sql = "SELECT cm.comment_text, u.user_name, cm.date_created FROM comments cm JOIN users u ON u.ID = cm.comment_author WHERE cm.ID = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("i", $postid);
+  $stmt->execute();
+  $results = $stmt->get_result();
+  return $results->fetch_all(MYSQLI_ASSOC);
+}
 
+function outputComments($comments) {
+  $output = '';
+  foreach ($comments as $comment) {
+    $output .= "<div class='card mt-2 mb-2'><div class='card-header'> {$comment['user_name']} | {$comment['date_created']} </div><div class='card-body'><p class='card-text'>{$comment['comment_text']} </p></div></div>";
+  }
+  echo $output;
 }
  ?>

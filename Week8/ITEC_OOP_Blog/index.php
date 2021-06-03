@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'core/ini.php';
 include 'func/postmanager.php';
 include 'includes/header.php';
 

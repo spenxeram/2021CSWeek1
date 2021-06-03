@@ -26,5 +26,6 @@ if(isset($_GET['id'])) {
 
  <hr>
  <?php
+ var_dump($GLOBALS);
  include 'includes/footer.php';
   ?>
