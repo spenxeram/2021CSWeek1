@@ -60,12 +60,11 @@ function commentAjax(comment, postid) {
 
 // General function
 function outputNewComment(output) {
-  let newdiv = document.createElement("div");
-  newdiv.classList = "col-md-7 mt-2 mb-2";
-  commentsdiv.prepend(newdiv);
-  let theoutput = `<div class="card"><div class="card-header">${output.user_name} | ${output.date_created}</div>
+
+  let theoutput = `<div class="col-md-7 mt-2 mb-2"><div class="card"><div class="card-header">${output.user_name} | ${output.date_created}</div>
   <div class="card-body"><p class="card-text">${output.comment_text}</p>
-  </div></div>`;
-  newdiv.innerHTML = theoutput;
+  </div></div></div>`;
+
+  theform.insertAdjacentHTML("afterend", theoutput);
 
 }
