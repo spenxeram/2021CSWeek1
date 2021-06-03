@@ -19,9 +19,15 @@ include 'classes/Post.php';
           $post = new Post($_GET['id'], $conn);
           $post->getPost();
           echo $post->outputPost();
+        } elseif (isset($_GET['delete'])) {
+          $post = new Post($_GET['delete'], $conn);
+          $post->deletePost();
+          
         }
 
          ?>
+
+        <a href="index.php?delete=<?php if(isset($_GET['id'])) { echo $post->id; } ?>"><button type="button" class="btn btn-danger">Delete Post</button></a>
       </div>
 
     </div>

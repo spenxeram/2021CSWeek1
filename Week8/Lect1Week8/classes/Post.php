@@ -31,6 +31,21 @@ class Post {
     $this->author = $row['post_author'];
   }
 
+  public function deletePost() {
+    $sql = "DELETE FROM posts WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $this->id);
+    $stmt->execute();
+    if($stmt->affected_rows == 1) {
+      echo "<h1 class='display-2'>Post was deleted!</h1>".
+      "<a href='index.php?id=1'><button class='btn btn-primary'>Return Home</button></a>";
+    } else {
+     echo '<div class="alert alert-danger" role="alert">
+        Row not found or deleted!
+      </div>';
+    }
+  }
+
 
 
 }
