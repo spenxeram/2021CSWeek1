@@ -19,7 +19,7 @@ class Comment {
 
   // Comment methods : CRUD etc
   public function getComments() {
-    $sql = "SELECT * FROM comments WHERE comment_post = ?";
+    $sql = "SELECT u.user_name, c.comment_text, c.date_created FROM comments c JOIN users u ON u.ID = c.comment_user WHERE comment_post = ?";
     $stmt = $this->conn->prepare($sql);
     $stmt->bind_param("i", $this->post_id);
     $stmt->execute();
@@ -32,7 +32,7 @@ class Comment {
     foreach ($this->comments as $comment) {
       $output.= "<div class='col-md-8 mt-2 mb-2'><div class='card'>
                   <div class='card-header'>
-                    {$comment['comment_user']} | {$comment['date_created']}
+                    {$comment['user_name']} | {$comment['date_created']}
                   </div>
                   <div class='card-body'>
                     <p class='card-text'>{$comment['comment_text']}</p>
