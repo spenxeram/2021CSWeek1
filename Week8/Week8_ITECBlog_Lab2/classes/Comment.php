@@ -30,7 +30,18 @@ class Comment {
   }
 
   public function outputComments() {
-
+    $output = "";
+    foreach ($this->comments as $comment) {
+      $output.= "<div class='col-md-8 mt-2 mb-2'><div class='card'>
+            <div class='card-header'>
+              {$comment['user_name']} | {$comment['date_created']}
+            </div>
+            <div class='card-body'>
+              <p class='card-text'>{$comment['comment_text']}</p>
+            </div>
+          </div></div>";
+    }
+    echo $output;
   }
 
   public function createComment() {

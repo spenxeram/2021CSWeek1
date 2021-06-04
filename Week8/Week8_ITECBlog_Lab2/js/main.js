@@ -12,7 +12,11 @@ let commentcard = document.querySelectorAll(".card");
 
 theform.addEventListener("submit", function(event) {
   event.preventDefault();
-
+  let querystring = hiddeninput.value;
+  let postid = querystring.split("=");
+  let comment = thecomment.value;
+  let theaction = "func/ajaxmanager.php";
+  commentAjax(comment, postid[1], theaction);
   theform.reset();
 })
 

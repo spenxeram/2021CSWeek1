@@ -8,6 +8,7 @@ if(isset($_GET['id'])) {
   $theid = $_GET['id'];
   $comments = new Comment($theid, $conn);
   $comments->getComments();
+
 }
 
 
@@ -50,7 +51,9 @@ if(isset($_GET['id'])) {
 
        </div>
 
-
+       <?php
+        $comments->outputComments();
+        ?>
      </div>
 
      <?php endif; ?>
