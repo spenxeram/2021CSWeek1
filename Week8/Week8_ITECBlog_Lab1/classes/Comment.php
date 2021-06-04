@@ -10,6 +10,7 @@ class Comment {
   public $comment;
   public $comments = [];
   public $conn;
+  public $insert_id;
 
   // constructor function
   public function __construct($post_id, $conn) {
@@ -40,6 +41,26 @@ class Comment {
                 </div></div>";
     }
     echo $output;
+  }
+
+  public function createComment($comment_text, $user_id) {
+    $sql = "INSERT INTO comments (comment_text, comment_user, comment_post) VALUES (?,?,?)";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("sii", $comment_text, $user_id, $this->post_id);
+    $stmt->execute();
+    if($stmt->affected_rows == 1) {
+      $this->insert_id = $stmt->insert_id;
+      $this->getComment();
+    }
+  }
+
+  public function getComment() {
+    $sql = "SELECT u.user_name, c.comment_text, c.date_created FROM comments c JOIN users u ON u.ID = c.comment_user WHERE c.ID = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $this->insert_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    echo json_encode($result->fetch_assoc());
   }
 
 
