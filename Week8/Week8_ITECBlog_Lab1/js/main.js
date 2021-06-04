@@ -1,5 +1,4 @@
 console.log("main js loaded");
-
 // get needed elements
 let theform = document.querySelector("form.comment-form");
 let thecomment = document.querySelector(".comment-form textarea");
@@ -12,9 +11,10 @@ let commentcard = document.querySelectorAll(".card");
 
 theform.addEventListener("submit", function(event) {
   event.preventDefault();
-  let theaction = theform.getAttribute("action")
+  let comment = thecomment.value;
   let postid = hiddeninput.value.split("=");
-  commentAjax(thecomment.value, postid[1], theaction);
+  let theaction = "func/ajaxmanager.php";
+  commentAjax(comment, postid[1], theaction)
   theform.reset();
 })
 
@@ -50,10 +50,6 @@ function commentAjax(comment, postid, theaction) {
   xhr.onload = function() {
     if(this.status == 200) {
       console.log(this.responseText);
-      let output = JSON.parse(this.responseText);
-      console.log(output);
-
-      outputNewComment(output);
     }
   }
 
