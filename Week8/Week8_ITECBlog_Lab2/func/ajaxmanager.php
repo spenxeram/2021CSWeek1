@@ -6,6 +6,7 @@ if(isset($_POST['comment'])) {
   $comment_text = $_POST['comment'];
   $comment = new Comment($post_id, $conn);
   $comment->createComment($comment_text);
+  echo json_encode($comment->comment);
 }
 
 if(isset($_POST['delete-comment'])) {

@@ -17,7 +17,6 @@ class Comment {
     $this->comment_post_id = $post_id;
     $this->conn = $conn;
   }
-
   // general methods: CRUD
 
   public function getComments() {
@@ -32,7 +31,7 @@ class Comment {
   public function outputComments() {
     $output = "";
     foreach ($this->comments as $comment) {
-      if($_SESSION['user_id'] == $comment['comment_user']) {
+      if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $comment['comment_user']) {
         $button = "<button class='btn float-right btn-sm btn-outline-danger delete-post' data-comment-id='{$comment['ID']}'>X</button>";
       } else {
         $button = "";
@@ -64,22 +63,30 @@ class Comment {
   }
 
   public function getComment() {
-    $sql = "SELECT c.ID, c.comment_text, c.date_created, u.user_name FROM comments c JOIN users u ON u.ID = c.comment_user WHERE c.ID = ?";
+    $sql = "SELECT c.ID, c.comment_text, c.date_created, u.user_name, c.comment_user FROM comments c JOIN users u ON u.ID = c.comment_user WHERE c.ID = ?";
     $stmt = $this->conn->prepare($sql);
     $stmt->bind_param("i", $this->comment_id);
     $stmt->execute();
     $results = $stmt->get_result();
-    echo json_encode($results->fetch_assoc());
+    $this->comment = $results->fetch_assoc();
   }
 
   public function deleteComment($comment_id) {
     $this->comment_id = $comment_id;
-    $sql = "DELETE FROM comments WHERE ID = ?";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bind_param("i", $this->comment_id);
-    $stmt->execute();
-    if($stmt->affected_rows == 1) {
-      echo true;
+    $this->getComment();
+    $_SESSION['comment'] = $this->comment;
+    if($this->comment['comment_user'] == $_SESSION['user_id']) {
+
+      $this->comment_id = $comment_id;
+      $sql = "DELETE FROM comments WHERE ID = ?";
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bind_param("i", $this->comment_id);
+      $stmt->execute();
+      if($stmt->affected_rows == 1) {
+        echo true;
+      } else {
+        echo false;
+      }
     } else {
       echo false;
     }

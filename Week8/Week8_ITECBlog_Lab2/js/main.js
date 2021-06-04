@@ -40,7 +40,7 @@ function commentAjax(comment, postid, theaction) {
   xhr.send("comment="+comment+"&post_id="+postid);
 }
 
-function deleteCommentAjax(comment_id) {
+function deleteCommentAjax(comment_id, parent_card) {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "func/ajaxmanager.php", true);
   // to use the post method we must set the request headers
@@ -49,7 +49,16 @@ function deleteCommentAjax(comment_id) {
   xhr.onload = function() {
     if(this.status == 200) {
       if(this.responseText == true) {
-
+        parent_card.classList.add("shrinkStart");
+        setTimeout(function(){
+          parent_card.classList.add("shrinkFinish");
+        },100);
+        setTimeout(function(){
+          parent_card.remove();
+          notification("Comment successfully removed!", "success", "fas fa-check-circle");
+        },400);
+      } else {
+        notification("Could not remove this comment!", "danger", "fas fa-times");
       }
 
     }
@@ -75,20 +84,32 @@ commentcard.forEach((card, i) => {
     e.preventDefault();
     console.log("click");
     if(e.target.classList.contains("delete-post")){
+      let comment_target = e.target;
       let comment_id = e.target.getAttribute("data-comment-id");
       console.log("delete:" + comment_id);
-      let par = e.target.parentNode.parentNode.parentNode;
-      deleteCommentAjax(comment_id);
-      par.classList.add("shrinkStart");
-      setTimeout(function(){
-        par.classList.add("shrinkFinish");
-      },100);
-      setTimeout(function(){
-        par.remove();
-      },400);
+      let parent_card = e.target.parentNode.parentNode.parentNode;
+      deleteCommentAjax(comment_id, parent_card);
     }
 
     console.log(e);
   })
 
 });
+
+function notification(msg, msgClass, icon = "") {
+  let overlay = document.createElement("div");
+  overlay.classList = "overlay";
+  let notification = `<div class='alert alert-${msgClass}'><i class="${icon}"></i> ${msg}</div>`;
+  overlay.innerHTML = notification;
+  let body = document.querySelector("body");
+  body.append(overlay);
+  setTimeout(function() {
+    overlay.style.opacity = "1";
+  }, 10);
+  setTimeout(function() {
+    overlay.style.opacity = "0";
+  }, 1500);
+  setTimeout(function() {
+    overlay.remove();
+  }, 1800);
+}
