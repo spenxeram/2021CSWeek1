@@ -54,7 +54,7 @@ if(isset($_GET['id'])) {
      </div>
      <?php
 
-    //   $comments->outputComments();
+      $comments->outputComments();
       ?>
      <?php endif; ?>
 

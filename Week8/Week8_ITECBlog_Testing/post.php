@@ -42,20 +42,19 @@ if(isset($_GET['id'])) {
              <input type="hidden" name="id" value="<?php echo htmlspecialchars($_SERVER['QUERY_STRING']); ?>">
              <button type="submit" name="comment-submit" class="btn btn-outline-success mt-2"><i class="far fa-comment"></i> Add Comment</button>
            </form>
-           <?php $comments->outputComments(); ?>
+
          <?php else: ?>
            <h3>Please login to comment!</h3>
            <a href="login.php"><button type="button" class="btn btn-primary btn-lg">Login</button></a>
          <?php endif; ?>
 
+         <?php
+          $commments->outputComments();
+          ?>
        </div>
 
 
      </div>
-     <?php
-
-    //   $comments->outputComments();
-      ?>
      <?php endif; ?>
 
  </div>

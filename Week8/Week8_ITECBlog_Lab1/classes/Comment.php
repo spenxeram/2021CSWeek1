@@ -25,11 +25,21 @@ class Comment {
     $stmt->execute();
     $result = $stmt->get_result();
     $this->comments = $result->fetch_all(MYSQLI_ASSOC);
-
   }
 
   public function outputComments() {
-
+    $output = "";
+    foreach ($this->comments as $comment) {
+      $output.= "<div class='col-md-8 mt-2 mb-2'><div class='card'>
+                  <div class='card-header'>
+                    {$comment['comment_user']} | {$comment['date_created']}
+                  </div>
+                  <div class='card-body'>
+                    <p class='card-text'>{$comment['comment_text']}</p>
+                  </div>
+                </div></div>";
+    }
+    echo $output;
   }
 
 
