@@ -22,7 +22,7 @@ commentcard.forEach((card, i) => {
   card.addEventListener("click", function(e) {
     e.preventDefault();
     console.log("click");
-    if(e.target.classList.contains("delete-post")){
+    if(e.target.classList.contains("delete-comment")){
       console.log("delete");
       let par = e.target.parentNode.parentNode.parentNode;
       console.log(par);
@@ -49,7 +49,9 @@ function commentAjax(comment, postid, theaction) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.onload = function() {
     if(this.status == 200) {
-      console.log(this.responseText);
+      console.log(JSON.parse(this.responseText));
+      let new_comment = JSON.parse(this.responseText);
+      outputNewComment(new_comment);
     }
   }
 
