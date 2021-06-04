@@ -1,12 +1,13 @@
 <?php
 include_once 'config.php';
 include 'func/postmanager.php';
-include 'func/Comment.php';
+include 'classes/Comment.php';
 include 'includes/header.php';
 if(isset($_GET['id'])) {
   $post = getPost($_GET['id'], $conn);
   $theid = $_GET['id'];
-
+  $comments = new Comment($theid, $conn);
+  $comments->getComments();
 }
 
 
