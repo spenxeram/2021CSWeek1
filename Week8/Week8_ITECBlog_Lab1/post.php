@@ -6,7 +6,8 @@ include 'includes/header.php';
 if(isset($_GET['id'])) {
   $post = getPost($_GET['id'], $conn);
   $theid = $_GET['id'];
-
+  $comments = new Comment($theid, $conn);
+  $comments->getComments();
 }
 
 
