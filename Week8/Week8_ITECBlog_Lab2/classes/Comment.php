@@ -21,7 +21,7 @@ class Comment {
   // general methods: CRUD
 
   public function getComments() {
-    $sql = "SELECT c.ID, c.comment_text, c.date_created, u.user_name FROM comments c JOIN users u ON u.ID = c.comment_user WHERE c.comment_post = ? ORDER BY c.date_created DESC";
+    $sql = "SELECT c.ID, c.comment_text, c.date_created, u.user_name, c.comment_user FROM comments c JOIN users u ON u.ID = c.comment_user WHERE c.comment_post = ? ORDER BY c.date_created DESC";
     $stmt = $this->conn->prepare($sql);
     $stmt->bind_param("i", $this->comment_post_id);
     $stmt->execute();
@@ -32,9 +32,15 @@ class Comment {
   public function outputComments() {
     $output = "";
     foreach ($this->comments as $comment) {
+      if($_SESSION['user_id'] == $comment['comment_user']) {
+        $button = "<button class='btn float-right btn-sm btn-outline-danger delete-post' data-comment-id='{$comment['ID']}'>X</button>";
+      } else {
+        $button = "";
+      }
       $output.= "<div class='col-md-8 mt-2 mb-2'><div class='card'>
             <div class='card-header'>
               {$comment['user_name']} | {$comment['date_created']}
+              {$button};
             </div>
             <div class='card-body'>
               <p class='card-text'>{$comment['comment_text']}</p>
@@ -66,8 +72,17 @@ class Comment {
     echo json_encode($results->fetch_assoc());
   }
 
-  public function deleteComment() {
-
+  public function deleteComment($comment_id) {
+    $this->comment_id = $comment_id;
+    $sql = "DELETE FROM comments WHERE ID = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $this->comment_id);
+    $stmt->execute();
+    if($stmt->affected_rows == 1) {
+      echo true;
+    } else {
+      echo false;
+    }
   }
 
   public function updateComment() {

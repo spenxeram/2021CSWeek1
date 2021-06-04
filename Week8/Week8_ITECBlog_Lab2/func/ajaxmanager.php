@@ -9,7 +9,10 @@ if(isset($_POST['comment'])) {
 }
 
 if(isset($_POST['delete-comment'])) {
-
+  $comment_id = $_POST['comment_id'];
+  $post_id = $_SESSION["query_history"];
+  $comment = new Comment($post_id[3], $conn);
+  $comment->deleteComment($comment_id);
 }
 
 

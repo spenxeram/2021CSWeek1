@@ -37,9 +37,26 @@ function commentAjax(comment, postid, theaction) {
       outputNewComment(JSON.parse(this.responseText));
     }
   }
-
   xhr.send("comment="+comment+"&post_id="+postid);
 }
+
+function deleteCommentAjax(comment_id) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "func/ajaxmanager.php", true);
+  // to use the post method we must set the request headers
+  // depending on the form data being sent
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onload = function() {
+    if(this.status == 200) {
+      if(this.responseText == true) {
+
+      }
+
+    }
+  }
+  xhr.send("delete-comment=true&comment_id="+comment_id);
+}
+
 
 // General function
 function outputNewComment(output) {
@@ -58,13 +75,17 @@ commentcard.forEach((card, i) => {
     e.preventDefault();
     console.log("click");
     if(e.target.classList.contains("delete-post")){
-      console.log("delete");
+      let comment_id = e.target.getAttribute("data-comment-id");
+      console.log("delete:" + comment_id);
       let par = e.target.parentNode.parentNode.parentNode;
-      console.log(par);
+      deleteCommentAjax(comment_id);
       par.classList.add("shrinkStart");
       setTimeout(function(){
         par.classList.add("shrinkFinish");
       },100);
+      setTimeout(function(){
+        par.remove();
+      },400);
     }
 
     console.log(e);

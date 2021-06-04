@@ -31,3 +31,12 @@ button a {
   height: 0px;
   transform: scale(0);
 }
+
+.card-header > button {
+    opacity: 0;
+    transition: opacity 300ms;
+}
+
+.card-header:hover button {
+    opacity: 1;
+}
