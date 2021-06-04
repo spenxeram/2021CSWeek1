@@ -26,6 +26,10 @@ include 'Post.php';
           $post->getPost();
           // output html for the post
           echo $post->outputPost();
+        } elseif(isset($_GET['delete'])) {
+          $post = new Post($_GET['delete'], $conn);
+          $post->deletePost();
+
         } else {
           echo "<h1 class='display-4'>No posts found!</h1>";
         }

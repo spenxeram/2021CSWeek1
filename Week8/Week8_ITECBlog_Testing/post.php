@@ -1,13 +1,16 @@
 <?php
 include_once 'config.php';
 include 'func/postmanager.php';
-include 'func/commentmanager.php';
+include 'func/Comment.php';
 include 'includes/header.php';
 if(isset($_GET['id'])) {
   $post = getPost($_GET['id'], $conn);
   $theid = $_GET['id'];
-  $comments = getComments($theid, $conn);
+  $comments = new Comment($theid, $conn);
+  $comments->getComments();
 }
+
+
 
  ?>
  <hr>
@@ -34,14 +37,15 @@ if(isset($_GET['id'])) {
 
        <div class="col-md-8 form">
          <?php if ($_SESSION['loggedin']): ?>
-           <form class="comment-form" method="POST" action="func/commentmanager.php">
-             <textarea name="comment" class="form-control" rows="4" cols="80"></textarea>
+           <form class="comment-form" method="POST" action="func/ajaxManager.php?comment=true&<?php echo htmlspecialchars($_SERVER['QUERY_STRING']); ?>">
+             <textarea name="comment-text" class="form-control" rows="4" cols="80"></textarea>
              <input type="hidden" name="id" value="<?php echo htmlspecialchars($_SERVER['QUERY_STRING']); ?>">
              <button type="submit" name="comment-submit" class="btn btn-outline-success mt-2"><i class="far fa-comment"></i> Add Comment</button>
            </form>
+           <?php $comments->outputComments(); ?>
          <?php else: ?>
            <h3>Please login to comment!</h3>
-           <a href="login.php"><button type="button" class="btn btn-primary btn-lg">Login</button></a> 
+           <a href="login.php"><button type="button" class="btn btn-primary btn-lg">Login</button></a>
          <?php endif; ?>
 
        </div>
@@ -50,7 +54,7 @@ if(isset($_GET['id'])) {
      </div>
      <?php
 
-       outputComments($comments);
+    //   $comments->outputComments();
       ?>
      <?php endif; ?>
 
@@ -63,5 +67,6 @@ if(isset($_GET['id'])) {
  $queryId = substr($_SESSION['query_history'][$queryIDCount],$queryStrPos);
  $queryId = explode("=", $queryId);
  var_dump($_SESSION);
+ var_dump($GLOBALS);
  include 'includes/footer.php';
   ?>

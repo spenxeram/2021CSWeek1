@@ -12,7 +12,9 @@ let commentcard = document.querySelectorAll(".card");
 
 theform.addEventListener("submit", function(event) {
   event.preventDefault();
-  commentAjax(thecomment.value, hiddeninput.value);
+  let theaction = theform.getAttribute("action")
+  let postid = hiddeninput.value.split("=");
+  commentAjax(thecomment.value, postid[1], theaction);
   theform.reset();
 })
 
@@ -38,10 +40,10 @@ commentcard.forEach((card, i) => {
 
 // ajax request
 
-function commentAjax(comment, postid) {
+function commentAjax(comment, postid, theaction) {
 
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", "func/commentmanager.php", true);
+  xhr.open("POST", theaction, true);
   // to use the post method we must set the request headers
   // depending on the form data being sent
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -55,7 +57,7 @@ function commentAjax(comment, postid) {
     }
   }
 
-  xhr.send("comment="+comment+"&"+postid);
+  xhr.send("comment="+comment+"&post_id="+postid);
 }
 
 // General function

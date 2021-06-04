@@ -43,7 +43,20 @@ class Post {
   }
 
   public function deletePost() {
-
+    $sql = "DELETE FROM posts WHERE ID = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $this->id);
+    $stmt->execute();
+    if($stmt->affected_rows == 1) {
+      echo "<div class='alert alert-success' role='alert'>
+        You successfully delete the post!
+      </div>";
+    } else {
+      echo "<div class='alert alert-danger' role='alert'>
+        Article not found or there was an error deleting it!
+      </div>";
+    }
+    echo  '<a href="index.php?id=1"> <button type="button" class="btn btn-primary">Home</button> </a>';
   }
 
   public function updatePost() {
