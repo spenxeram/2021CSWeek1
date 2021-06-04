@@ -33,8 +33,8 @@ function commentAjax(comment, postid, theaction) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.onload = function() {
     if(this.status == 200) {
-      console.log(this.responseText);
-
+      console.log(JSON.parse(this.responseText));
+      outputNewComment(JSON.parse(this.responseText));
     }
   }
 
@@ -44,7 +44,7 @@ function commentAjax(comment, postid, theaction) {
 // General function
 function outputNewComment(output) {
 
-  let theoutput = `<div class="col-md-7 mt-2 mb-2"><div class="card"><div class="card-header">${output.user_name} | ${output.date_created}</div>
+  let theoutput = `<div class="col-md-8 mt-2 mb-2"><div class="card"><div class="card-header">${output.user_name} | ${output.date_created}</div>
   <div class="card-body"><p class="card-text">${output.comment_text}</p>
   </div></div></div>`;
 

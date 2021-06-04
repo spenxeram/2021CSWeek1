@@ -44,12 +44,26 @@ class Comment {
     echo $output;
   }
 
-  public function createComment() {
-
+  public function createComment($comment_text) {
+    $this->comment_text = $comment_text;
+    $sql = "INSERT INTO comments (comment_text, comment_user, comment_post) VALUES (?,?,?)";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("sii", $this->comment_text, $_SESSION['user_id'], $this->comment_post_id);
+    $stmt->execute();
+    if($stmt->affected_rows == 1) {
+      $this->comment_id = $stmt->insert_id;
+      // this will return the comment as a json encoded string
+      $this->getComment();
+    }
   }
 
   public function getComment() {
-
+    $sql = "SELECT c.ID, c.comment_text, c.date_created, u.user_name FROM comments c JOIN users u ON u.ID = c.comment_user WHERE c.ID = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $this->comment_id);
+    $stmt->execute();
+    $results = $stmt->get_result();
+    echo json_encode($results->fetch_assoc());
   }
 
   public function deleteComment() {
