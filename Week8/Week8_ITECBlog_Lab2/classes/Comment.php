@@ -31,7 +31,7 @@ class Comment {
   public function outputComments() {
     $output = "";
     foreach ($this->comments as $comment) {
-      if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $comment['comment_user']) {
+      if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $comment['comment_user'] || $_SESSION['user_role'] == 1) {
         $button = "<button class='btn float-right btn-sm btn-outline-danger delete-post' data-comment-id='{$comment['ID']}'>X</button>";
       } else {
         $button = "";
@@ -63,7 +63,7 @@ class Comment {
   }
 
   public function getComment() {
-    $sql = "SELECT c.ID, c.comment_text, c.date_created, u.user_name, c.comment_user FROM comments c JOIN users u ON u.ID = c.comment_user WHERE c.ID = ?";
+    $sql = "SELECT c.ID as comment_id, c.comment_text, c.date_created, u.user_name, c.comment_user FROM comments c JOIN users u ON u.ID = c.comment_user WHERE c.ID = ?";
     $stmt = $this->conn->prepare($sql);
     $stmt->bind_param("i", $this->comment_id);
     $stmt->execute();
@@ -75,8 +75,7 @@ class Comment {
     $this->comment_id = $comment_id;
     $this->getComment();
     $_SESSION['comment'] = $this->comment;
-    if($this->comment['comment_user'] == $_SESSION['user_id']) {
-
+    if($this->comment['comment_user'] == $_SESSION['user_id'] || $_SESSION['user_role'] == 1) {
       $this->comment_id = $comment_id;
       $sql = "DELETE FROM comments WHERE ID = ?";
       $stmt = $this->conn->prepare($sql);

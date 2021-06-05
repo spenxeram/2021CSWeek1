@@ -69,18 +69,30 @@ function deleteCommentAjax(comment_id, parent_card) {
 
 // General function
 function outputNewComment(output) {
-
-  let theoutput = `<div class="col-md-8 mt-2 mb-2"><div class="card"><div class="card-header">${output.user_name} | ${output.date_created}</div>
+  let wrapperdiv = document.createElement('div');
+  wrapperdiv.classList = "col-md-8 mt-2 mb-2 shrink comment-wrapper";
+  let theoutput = `<div class="card"><div class="card-header">${output.user_name} | ${output.date_created} <button class='btn float-right btn-sm btn-outline-danger delete-post' data-comment-id='${output.comment_id}'>X</button></div>
   <div class="card-body"><p class="card-text">${output.comment_text}</p>
-  </div></div></div>`;
+  </div></div>`;
+  wrapperdiv.innerHTML = theoutput;
+  console.log(wrapperdiv);
+  commentsdiv.prepend(wrapperdiv);
+  setTimeout(function(){
+    wrapperdiv.classList.remove("shrink");
+  },10);
 
-  theform.insertAdjacentHTML("afterend", theoutput);
+  setTimeout(function(){
+    wrapperdiv.classList.add("grow");
+  },20);
+  setTimeout(function(){
+    notification("New comment added", "success", "far fa-plus-square");
+  },300);
+
 
 }
 
 
-commentcard.forEach((card, i) => {
-  card.addEventListener("click", function(e) {
+  commentsdiv.addEventListener("click", function(e) {
     e.preventDefault();
     console.log("click");
     if(e.target.classList.contains("delete-post")){
@@ -92,9 +104,8 @@ commentcard.forEach((card, i) => {
     }
 
     console.log(e);
-  })
+  });
 
-});
 
 function notification(msg, msgClass, icon = "") {
   let overlay = document.createElement("div");

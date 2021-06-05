@@ -34,8 +34,8 @@ if(isset($_GET['id'])) {
       <hr>
       <h3 class="display-4 mt-3 mb-3">Comments</h3>
       <hr>
-     <div class="row comments">
 
+      <div class="row comment-form">
        <div class="col-md-8 form">
          <?php if ($_SESSION['loggedin']): ?>
            <form class="comment-form" method="POST" action="func/ajaxmanager">
@@ -48,9 +48,9 @@ if(isset($_GET['id'])) {
            <h3>Please login to comment!</h3>
            <a href="login.php"><button type="button" class="btn btn-primary btn-lg">Login</button></a>
          <?php endif; ?>
-
        </div>
-
+       </div>
+       <div class="row comments">
        <?php
         $comments->outputComments();
         ?>

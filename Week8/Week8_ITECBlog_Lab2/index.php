@@ -8,7 +8,7 @@ include 'includes/header.php';
       <div class="container">
         <h1 class="display-3">Itec Blog 2021</h1>
         <p class="lead">Click the button to trigger an AJAX request that returns the number of posts.</p>
-        <button type="button" class="btn btn-outline-primary ajax">Check Number of Posts</button>
+        <button type="button" class="btn btn-outline-light ajax">Check Number of Posts</button>
         <p class="num-posts"></p>
       </div>
     </div>

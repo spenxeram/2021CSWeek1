@@ -1,8 +1,8 @@
 .jumbotron {
-  background: url("https://img5.goodfon.com/wallpaper/nbig/3/98/abstraktnyi-geometricheskii-linii-background-fon.jpg");
-  background-size: cover;
-  background-attachment: fixed;
-  text-shadow: 1px 1px 1px black;
+    background: url(https://png.pngtree.com/thumb_back/fw800/background/20190222/ourmid/pngtree-technology-future-25d-isometric-gradient-background-5disometricgradientbackground-image_53995.jpg);
+    text-shadow: 1px 1px 1px black;
+    background-size: cover;
+    background-position-y: top;
 }
 
 .error {
@@ -55,4 +55,12 @@ button a {
 .overlay .alert {
   width: 50%;
   margin: 40vh auto;
+}
+
+.comment-wrapper {
+  transform: scaleY(1);
+  transition: transform 500ms;
+}
+.shrink {
+  transform: scaleY(0);
 }
