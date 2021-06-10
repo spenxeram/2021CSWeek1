@@ -98,12 +98,29 @@ function outputNewComment(output) {
       let comment_target = e.target;
       let comment_id = e.target.getAttribute("data-comment-id");
       console.log("delete:" + comment_id);
-      let parent_card = e.target.parentNode.parentNode.parentNode;
+      let parent_card = e.closest(".card");
       deleteCommentAjax(comment_id, parent_card);
+    } else if (e.target.classList.contains("reply-comment")) {
+      createReplyForm(e.target);
     }
 
     console.log(e);
   });
+
+
+function createReplyForm(el) {
+  let data_comment_id = el.getAttribute("data-comment-id");
+  let data_comment_user_id = el.getAttribute("data-comment-user-id");
+  let wrapperdiv = el.closest(".comment-wrapper");
+  wrapperdiv.classList.add("active");
+  let formclone = theform.cloneNode(true);
+  formclone.setAttribute("data-comment-id",data_comment_id);
+  formclone.setAttribute("data-comment-user-id",data_comment_user_id);
+  formclone.classList.add("mt-2");
+  console.log(el);
+  wrapperdiv.append(formclone);
+
+}
 
 
 function notification(msg, msgClass, icon = "") {

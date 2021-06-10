@@ -36,7 +36,7 @@ class Comment {
       } else {
         $button = "";
       }
-      $output.= "<div class='col-md-8 mt-2 mb-2'><div class='card'>
+      $output.= "<div class='col-md-8 mt-2 mb-2 comment-wrapper'><div class='card'>
             <div class='card-header'>
               {$comment['user_name']} | {$comment['date_created']}
 
