@@ -91,20 +91,19 @@ function outputNewComment(output) {
 
 }
 
+commentsdiv.addEventListener("click", function(e) {
+  e.preventDefault();
+  console.log("click");
+  if(e.target.classList.contains("delete-post")){
+    let comment_target = e.target;
+    let comment_id = e.target.getAttribute("data-comment-id");
+    console.log("delete:" + comment_id);
+    let parent_card = e.target.parentNode.parentNode.parentNode;
+    deleteCommentAjax(comment_id, parent_card);
+  }
 
-  commentsdiv.addEventListener("click", function(e) {
-    e.preventDefault();
-    console.log("click");
-    if(e.target.classList.contains("delete-post")){
-      let comment_target = e.target;
-      let comment_id = e.target.getAttribute("data-comment-id");
-      console.log("delete:" + comment_id);
-      let parent_card = e.target.parentNode.parentNode.parentNode;
-      deleteCommentAjax(comment_id, parent_card);
-    }
-
-    console.log(e);
-  });
+  console.log(e);
+});
 
 
 function notification(msg, msgClass, icon = "") {

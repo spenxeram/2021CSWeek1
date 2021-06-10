@@ -39,12 +39,13 @@ class Comment {
       $output.= "<div class='col-md-8 mt-2 mb-2'><div class='card'>
             <div class='card-header'>
               {$comment['user_name']} | {$comment['date_created']}
-              {$button};
+
             </div>
             <div class='card-body'>
               <p class='card-text'>{$comment['comment_text']}</p>
-            </div>
-          </div></div>";
+              {$button}
+              <button class='btn mr-1 ml-1 float-right btn-sm btn-outline-secondary reply-post' data-comment-user-id='{$comment['comment_user']}' data-comment-id='{$comment['ID']}'>reply</button>
+            </div></div></div>";
     }
     echo $output;
   }
