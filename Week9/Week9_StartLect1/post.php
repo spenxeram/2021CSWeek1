@@ -41,7 +41,7 @@ if(isset($_GET['id'])) {
            <form class="comment-form" method="POST" action="func/ajaxmanager">
              <textarea name="comment-text" class="form-control" rows="4" cols="80"></textarea>
              <input type="hidden" name="id" value="<?php echo htmlspecialchars($_SERVER['QUERY_STRING']); ?>">
-             <button type="submit" name="comment-submit" class="btn btn-outline-success mt-2"><i class="far fa-comment"></i> Add Comment</button>
+             <button type="submit" name="comment-submit" class="btn btn-outline-success mt-2 comment-submit"><i class="far fa-comment"></i> Add Comment</button>
            </form>
 
          <?php else: ?>

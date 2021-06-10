@@ -25,7 +25,6 @@ theform.addEventListener("submit", function(event) {
 // ajax request
 
 function commentAjax(comment, postid, theaction) {
-
   let xhr = new XMLHttpRequest();
   xhr.open("POST", theaction, true);
   // to use the post method we must set the request headers
@@ -66,6 +65,9 @@ function deleteCommentAjax(comment_id, parent_card) {
   xhr.send("delete-comment=true&comment_id="+comment_id);
 }
 
+function replyAjax(reply_to_comment_id, reply_to_user_id, comment_text) {
+  
+}
 
 // General function
 function outputNewComment(output) {
@@ -103,10 +105,24 @@ commentsdiv.addEventListener("click", function(e) {
   } else if (e.target.classList.contains("reply-comment")) {
     console.log(e.target);
     insertReplyForm(e.target);
+  } else if (e.target.classList.contains("comment-submit")) {
+    console.log(e.target);
+    createReply(e.target);
   }
 
   console.log(e);
 });
+
+function createReply(el) {
+  let replyform = el.closest("form");
+  let reply_to_user_id = replyform.getAttribute("data-comment-user-id");
+  let reply_to_comment_id = replyform.getAttribute("data-comment-id");
+  let comment_text = replyform.querySelector("textarea").value;
+  console.log(comment_text);
+  let wrapperdiv = el.closest(".comment-wrapper");
+  wrapperdiv.classList.remove("active");
+  replyAjax(reply_to_comment_id, reply_to_user_id, comment_text);
+}
 
 
 function insertReplyForm(el) {
