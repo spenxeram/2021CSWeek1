@@ -25,6 +25,10 @@ button a {
   object-position: center;
 }
 
+.reply .card-header {
+    background: #cacaca;
+}
+
 .shrinkStart {
   height: 200px;
   transform: scale(1);

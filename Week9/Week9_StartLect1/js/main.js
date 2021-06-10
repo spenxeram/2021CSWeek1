@@ -65,8 +65,20 @@ function deleteCommentAjax(comment_id, parent_card) {
   xhr.send("delete-comment=true&comment_id="+comment_id);
 }
 
-function replyAjax(reply_to_comment_id, reply_to_user_id, comment_text) {
-  
+function replyAjax(reply_to_comment_id, reply_to_user_id, comment_text, wrapperdiv) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "func/ajaxmanager.php", true);
+  // to use the post method we must set the request headers
+  // depending on the form data being sent
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onload = function() {
+    if(this.status == 200) {
+      let result = JSON.parse(this.responseText);
+      wrapperdiv.classList.remove("active");
+      outputReply(result, wrapperdiv);
+    }
+  }
+  xhr.send("reply="+comment_text+"&reply_to_comment_id="+reply_to_comment_id+"&reply_to_user_id="+reply_to_user_id);
 }
 
 // General function
@@ -92,6 +104,26 @@ function outputNewComment(output) {
 
 
 }
+
+function outputReply(output, wrapperdiv) {
+  let parentdiv = document.createElement('div');
+  parentdiv.classList = "col-md-8 mt-2 mb-2 shrink reply comment";
+  let theoutput = `<div class="card"><div class="card-header">${output.user_name} | ${output.date_created} <button class='btn float-right btn-sm btn-outline-danger delete-post' data-comment-id='${output.comment_id}'>X</button></div>
+  <div class="card-body"><p class="card-text">${output.comment_text}</p>
+  </div></div>`;
+  parentdiv.innerHTML = theoutput;
+
+  wrapperdiv.append(parentdiv);
+  setTimeout(function(){
+    parentdiv.classList.remove("shrink");
+  },10);
+
+  setTimeout(function(){
+    notification("New comment added", "success", "far fa-plus-square");
+  },300);
+}
+
+
 
 commentsdiv.addEventListener("click", function(e) {
   e.preventDefault();
@@ -121,7 +153,8 @@ function createReply(el) {
   console.log(comment_text);
   let wrapperdiv = el.closest(".comment-wrapper");
   wrapperdiv.classList.remove("active");
-  replyAjax(reply_to_comment_id, reply_to_user_id, comment_text);
+  replyform.remove();
+  replyAjax(reply_to_comment_id, reply_to_user_id, comment_text, wrapperdiv);
 }
 
 
