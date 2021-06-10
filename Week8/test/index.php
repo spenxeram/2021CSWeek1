@@ -1,20 +1,25 @@
 <?php
-class Fruit {
-
-  public $color;
-  public $name;
-
-
-  public function __construct($color, $name) {
-    $this->name = $name;
-    $this->color = $color;
-  }
-
-}
-
-$apple = new Fruit("apple", "red");
-echo $apple->name;
-echo "<br>";
-
+include 'Animal.php';
 
  ?>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <?php
+    $cat = new Animal("cat");
+    echo $cat->sound();
+    $cat = new Animal("dog");
+    echo $cat->sound();
+     ?>
+     <br>
+     <?php
+     $lion = new Lion("lion", "male");
+     echo $lion->sound();
+      ?>
+  </body>
+</html>
