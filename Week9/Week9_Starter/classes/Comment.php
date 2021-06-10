@@ -20,7 +20,7 @@ class Comment {
   // general methods: CRUD
 
   public function getComments() {
-    $sql = "SELECT c.ID, c.comment_text, c.date_created, u.user_name, c.comment_user FROM comments c JOIN users u ON u.ID = c.comment_user WHERE c.comment_post = ? ORDER BY c.date_created DESC";
+    $sql = "SELECT c.ID, c.comment_text, c.date_created, u.user_name, u.ID AS user_id, c.comment_user FROM comments c JOIN users u ON u.ID = c.comment_user WHERE c.comment_post = ? ORDER BY c.date_created DESC";
     $stmt = $this->conn->prepare($sql);
     $stmt->bind_param("i", $this->comment_post_id);
     $stmt->execute();
@@ -39,10 +39,13 @@ class Comment {
       $output.= "<div class='col-md-8 mt-2 mb-2'><div class='card'>
             <div class='card-header'>
               {$comment['user_name']} | {$comment['date_created']}
-              {$button};
+
             </div>
             <div class='card-body'>
               <p class='card-text'>{$comment['comment_text']}</p>
+              {$button}
+              <button class='btn mr-1 ml-1 float-right btn-sm btn-outline-secondary reply-comment' data-comment-id='{$comment['ID']}' data-comment-user-id='{$comment['user_id']}'>reply</button>
+
             </div>
           </div></div>";
     }

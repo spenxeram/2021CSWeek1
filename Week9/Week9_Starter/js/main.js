@@ -13,10 +13,9 @@ let commentcard = document.querySelectorAll(".card");
 theform.addEventListener("submit", function(event) {
   event.preventDefault();
   let querystring = hiddeninput.value;
-  let postid = querystring.split("=");
+  let postid = querystring.split("="); id=7 [id, 7]
   let comment = thecomment.value;
-  let theaction = "func/ajaxmanager.php";
-  commentAjax(comment, postid[1], theaction);
+  commentAjax(comment, postid[1]);
   theform.reset();
 })
 
@@ -24,10 +23,10 @@ theform.addEventListener("submit", function(event) {
 
 // ajax request
 
-function commentAjax(comment, postid, theaction) {
+function commentAjax(comment, postid) {
 
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", theaction, true);
+  xhr.open("POST", "func/ajaxmanager.php", true);
   // to use the post method we must set the request headers
   // depending on the form data being sent
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
