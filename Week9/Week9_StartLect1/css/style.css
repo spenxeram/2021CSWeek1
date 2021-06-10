@@ -64,3 +64,9 @@ button a {
 .shrink {
   transform: scaleY(0);
 }
+
+.comment-wrapper.active {
+    background: #eaeaea;
+    border-radius: 4px;
+    padding: 11px;
+}
