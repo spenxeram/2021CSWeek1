@@ -55,12 +55,40 @@
         </div>
         </div>
         <?php
-        // $theid = $comment['CID'];
-        // $thereply = array_filter($replies->replies, function($data) use ($theid) {
-        //   return $data['comment_parent'] === $theid;
-        // });
+          $theid = $comment['CID'];
+          $thereply = array_filter($replies->replies, function($data) use ($theid) {
+            return $data['comment_parent'] === $theid;
+          });
         ?>
-
+        <?php foreach ($thereply as $reply): ?>
+          <div class='col-md-8 offset-md-1 mt-2 mb-2 comment'>
+            <div class='card'>
+              <div class='card-header' style="background:lightgrey">
+                <a href='user.php?id=<?php echo $reply['UID']; ?>' class='comment-user-id' data-comment-user-id='<?php echo $reply['UID']; ?>'><?php echo $reply['user_name']; ?></a> <em>replying to </em> <?php echo $reply['response_to_user'];?> | <?php echo $reply['date_created']; ?>
+                <nav class="comment-thumb">
+                  <ul class="nav float-right">
+                    <li class="nav-item">
+                    <i class="fas fa-thumbs-up thumb" data-review-value="2" data-review-type="thumb"></i>
+                    </li>
+                    <li class="nav-item">
+                    400
+                    </li>
+                    <li class="nav-item">
+                      <i class="fas fa-thumbs-down thumb"  data-review-value="1" data-review-type="thumb"></i>
+                    </li>
+                    <li class="nav-item">
+                      200
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <div class='card-body'>
+                <p class='card-text'><?php echo $reply['comment_text']; ?></p>
+                  <?php echo $button; ?> <button class='btn float-right btn-sm btn-outline-secondary mr-2 reply-comment' data-comment-id='<?php echo $reply['CID']; ?>' data-comment-user-id='<?php echo $reply['UID']; ?>'>reply</button>
+              </div>
+            </div>
+            </div>
+        <?php endforeach; ?>
       </div>
   <?php endforeach; ?>
  </div>
