@@ -39,12 +39,24 @@ class Review {
       $stmt = $this->conn->prepare($sql);
       $stmt->bind_param("iiii", $this->review_value, $this->user_id, $this->comment_id, $this->post_id);
       $stmt->execute();
-      echo $stmt->affected_rows;
+      $review_results = [
+        "affected_rows" => $stmt->affected_rows,
+        "new_review" => true
+      ];
+      echo json_encode($review_results);
     }
   }
 
   public function updateReview() {
-    echo "review updated";
+    $sql = "UPDATE reviews SET review_value = ? WHERE user_id = ? AND comment_id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("iii", $this->review_value, $this->user_id, $this->comment_id);
+    $stmt->execute();
+    $review_results = [
+      "affected_rows" => $stmt->affected_rows,
+      "new_review" => false
+    ];
+    echo json_encode($review_results);
   }
 
 
