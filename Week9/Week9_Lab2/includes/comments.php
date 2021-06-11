@@ -25,6 +25,23 @@
     } else {
       $button = "";
     }
+
+
+    $theid = $comment['CID'];
+    $thereview = array_filter($reviews->reviews, function($data) use ($theid) {
+      return $data['comment_id'] === $theid;
+    });
+    if(!empty($thereview)) {
+      foreach ($thereview as $key) {
+      $thumbsup = $key['thumbs_up'];
+      $thumbsdown = $key['thumbs_down'];
+    }
+    } else {
+      $thumbsup = 0;
+      $thumbsdown = 0;
+    }
+
+     ?>
     ?>
     <div class='comment-wrapper col-md-12'>
       <div class='col-md-9 mt-2 mb-2 comment'>
@@ -37,13 +54,13 @@
                 <i class="fas fa-thumbs-up thumb" data-review-value="2" data-review-type="thumb"></i>
                 </li>
                 <li class="nav-item">
-                400
+                <?php echo $thumbsup; ?>
                 </li>
                 <li class="nav-item">
                   <i class="fas fa-thumbs-down thumb"  data-review-value="1" data-review-type="thumb"></i>
                 </li>
                 <li class="nav-item">
-                  200
+                <?php echo $thumbsdown; ?>
                 </li>
               </ul>
             </nav>
@@ -61,6 +78,21 @@
           });
         ?>
         <?php foreach ($thereply as $reply): ?>
+          <?php
+          $theid = $reply['CID'];
+          $thereview = array_filter($reviews->reviews, function($data) use ($theid) {
+            return $data['comment_id'] === $theid;
+          });
+          if(!empty($thereview)) {
+            foreach ($thereview as $key) {
+            $thumbsup = $key['thumbs_up'];
+            $thumbsdown = $key['thumbs_down'];
+          }
+          } else {
+            $thumbsup = 0;
+            $thumbsdown = 0;
+          }
+           ?>
           <div class='col-md-8 offset-md-1 mt-2 mb-2 comment'>
             <div class='card'>
               <div class='card-header' style="background:lightgrey">
@@ -71,13 +103,13 @@
                     <i class="fas fa-thumbs-up thumb" data-review-value="2" data-review-type="thumb"></i>
                     </li>
                     <li class="nav-item">
-                    400
+                    <?php echo $thumbsup; ?>
                     </li>
                     <li class="nav-item">
                       <i class="fas fa-thumbs-down thumb"  data-review-value="1" data-review-type="thumb"></i>
                     </li>
                     <li class="nav-item">
-                      200
+                    <?php echo $thumbsdown; ?>
                     </li>
                   </ul>
                 </nav>
