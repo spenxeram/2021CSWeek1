@@ -28,32 +28,6 @@ class Comment {
     $this->comments = $results->fetch_all(MYSQLI_ASSOC);
   }
 
-  public function outputComments($replies) {
-    $output = "";
-    foreach ($this->comments as $comment) {
-      if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $comment['comment_user'] || $_SESSION['user_role'] == 1) {
-        $button = "<button class='btn float-right btn-sm btn-outline-danger delete-post' data-comment-id='{$comment['CID']}'>X</button>";
-      } else {
-        $button = "";
-      }
-      echo "<div class='comment-wrapper col-md-12'>
-                  <div class='col-md-8 mt-2 mb-2 comment'>
-                    <div class='card'>
-                      <div class='card-header'>
-                        <a href='user.php?id={$comment['UID']}' class='comment-user-id' data-comment-user-id='{$comment['UID']}'>{$comment['user_name']}</a> | {$comment['date_created']}
-                        {$button} <button class='btn float-right btn-sm btn-outline-secondary mr-2 reply-comment' data-comment-id='{$comment['CID']}'>reply</button>
-                      </div>
-                      <div class='card-body'>
-                        <p class='card-text'>{$comment['comment_text']}</p>
-                      </div>
-                    </div>
-                    </div>";
-
-          $replies->outputReplies($comment['CID']);
-
-      }
-        echo "</div>";
-  }
 
   public function createComment() {
     $sql = "INSERT INTO comments (comment_text, comment_user, comment_post) VALUES (?,?,?)";

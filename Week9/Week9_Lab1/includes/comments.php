@@ -34,13 +34,13 @@
             <nav class="comment-thumb">
               <ul class="nav float-right">
                 <li class="nav-item">
-                <i class="fas fa-thumbs-up thumb" data-review-value="1" data-review-type="thumb"></i>
+                <i class="fas fa-thumbs-up thumb" data-review-value="2" data-review-type="thumb"></i>
                 </li>
                 <li class="nav-item">
                 400
                 </li>
                 <li class="nav-item">
-                  <i class="fas fa-thumbs-down thumb"  data-review-value="0" data-review-type="thumb"></i>
+                  <i class="fas fa-thumbs-down thumb"  data-review-value="1" data-review-type="thumb"></i>
                 </li>
                 <li class="nav-item">
                   200
@@ -60,7 +60,7 @@
         //   return $data['comment_parent'] === $theid;
         // });
         ?>
-      
+
       </div>
   <?php endforeach; ?>
  </div>

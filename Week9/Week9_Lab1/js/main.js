@@ -160,10 +160,19 @@ function outputNewComment(output, iscomment = true, parent = false) {
       let parent_card = e.target.closest(".comment-wrapper");
       parent_card.classList.remove("active-reply");
       replyCommentAjax(comment_id, reply_user_id, parent_card, comment_text, reply_form);
+    } else if (e.target.classList.contains("thumb")) {
+      createThumbReview(e.target);
     }
   });
 
-
+function createThumbReview(el) {
+  let review_value = el.getAttribute("data-review-value");
+  let review_type = el.getAttribute("data-review-type");
+  let parent_card = el.closest(".card");
+  console.log(parent_card);
+  let comment_id = parent_card.querySelector(".reply-comment").getAttribute("data-comment-id");
+  console.log(comment_id);
+}
 
 function notification(msg, msgClass, icon = "") {
   let overlay = document.createElement("div");
