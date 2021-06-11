@@ -98,6 +98,9 @@ function thumbAjax(review_value, review_type, comment_id, el) {
   xhr.onload = function() {
     if(this.status == 200) {
       console.log(this.responseText);
+      if(this.responseText == 1) {
+        el.classList.add("active");
+      }
     }
   }
   xhr.send("review_value="+review_value+"&review_type="+review_type+"&comment_id="+comment_id);

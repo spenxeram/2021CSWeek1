@@ -2,6 +2,7 @@
 
 class Review {
 
+  public $user_id;
   public $review_id;
   public $review_type;
   public $review_value;
@@ -21,6 +22,7 @@ class Review {
     $this->comment_id = $comment_id;
     $post_id = explode("=",$_SESSION['query_history'][4]);
     $this->post_id = $post_id[1];
+    $this->user_id = $_SESSION['user_id'];
   }
 
   public function createReview() {
@@ -30,10 +32,20 @@ class Review {
     $stmt->bind_param("ii", $_SESSION['user_id'], $this->comment_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    var_dump($result)
+    if($result->num_rows == 1) {
+      $this->updateReview();
+    } else {
+      $sql = "INSERT INTO reviews (review_value, user_id, comment_id, post_id) VALUES (?,?,?,?)";
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bind_param("iiii", $this->review_value, $this->user_id, $this->comment_id, $this->post_id);
+      $stmt->execute();
+      echo $stmt->affected_rows;
+    }
   }
 
-
+  public function updateReview() {
+    echo "review updated";
+  }
 
 
 
