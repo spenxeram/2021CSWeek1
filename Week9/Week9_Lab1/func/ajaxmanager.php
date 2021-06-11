@@ -2,6 +2,7 @@
 include '../config.php';
 include '../classes/Comment.php';
 include '../classes/Reply.php';
+include '../classes/Review.php';
 if(isset($_POST['comment'])) {
   $post_id = $_POST['post_id'];
   $comment_text = $_POST['comment'];
@@ -31,7 +32,12 @@ if(isset($_POST['reply-comment'])) {
 }
 
 if(isset($_POST['review_value'])) {
-  echo "You submitted" . $_POST['review_value'];
+  $review_value = $_POST['review_value'];
+  $review_type = $_POST['review_type'];
+  $comment_id = $_POST['comment_id'];
+  $review = new Review($conn);
+  $review->setReviewProperties($review_type, $review_value, $comment_id);
+  var_dump($review);
 }
 
 
