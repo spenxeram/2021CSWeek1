@@ -89,6 +89,20 @@ function replyCommentAjax(comment_id, reply_user_id, parent_card, comment_text, 
   xhr.send("reply-comment=true&comment_id="+comment_id+"&reply_user_id="+reply_user_id+"&comment_text="+comment_text);
 }
 
+function thumbAjax(review_value, review_type, comment_id, el) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "func/ajaxmanager.php", true);
+  // to use the post method we must set the request headers
+  // depending on the form data being sent
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onload = function() {
+    if(this.status == 200) {
+      console.log(this.responseText);
+    }
+  }
+  xhr.send("review_value="+review_value+"&review_type="+review_type+"&comment_id="+comment_id);
+}
+
 // General function
 function outputNewComment(output, iscomment = true, parent = false) {
   let wrapperdiv = document.createElement('div');
@@ -158,10 +172,22 @@ function outputNewComment(output, iscomment = true, parent = false) {
       let parent_card = e.target.closest(".comment-wrapper");
       parent_card.classList.remove("active-reply");
       replyCommentAjax(comment_id, reply_user_id, parent_card, comment_text, reply_form);
-    } 
+    } else if (e.target.classList.contains("thumb")) {
+      console.log(e.target);
+      createThumbReview(e.target);
+    }
   });
 
+function createThumbReview(el) {
+  // needed vals: comment_id (reply btn), review-value, review-review_type
+  let review_value = el.getAttribute("data-review-value");
+  let review_type = el.getAttribute("data-review-type");
+  let parent_card = el.closest(".card");
+  let comment_id = parent_card.querySelector(".reply-comment").getAttribute("data-comment-id");
 
+  thumbAjax(review_value, review_type, comment_id, el);
+
+}
 
 function notification(msg, msgClass, icon = "") {
   let overlay = document.createElement("div");
