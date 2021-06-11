@@ -30,6 +30,9 @@ if(isset($_POST['reply-comment'])) {
   echo json_encode($reply->comment);
 }
 
+if(isset($_POST['review_value'])) {
+  echo "You submitted" . $_POST['review_value'];
+}
 
 
 
