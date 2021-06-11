@@ -163,43 +163,48 @@ function outputNewComment(output, iscomment = true, parent = false) {
 
   commentsdiv.addEventListener("click", function(e) {
     e.preventDefault();
-    console.log("click");
     if(e.target.classList.contains("delete-post")){
-      let comment_target = e.target;
-      let comment_id = e.target.getAttribute("data-comment-id");
-      console.log("delete:" + comment_id);
-      let parent_card = e.target.closest(".comment-wrapper");
-      deleteCommentAjax(comment_id, parent_card);
+      deletePost(e.target);
     } else if (e.target.classList.contains("reply-comment")) {
-      let reply_target = e.target;
-      console.log(reply_target);
-      let comment_id = reply_target.getAttribute("data-comment-id");
-      let reply_user_id = reply_target.getAttribute("data-comment-user-id");
-      console.log("reply user id = " + reply_user_id);
-      console.log("reply to:" + comment_id);
-      let parent_card = e.target.closest(".comment");
-      let formclone = theform.cloneNode(true);
-      formclone.setAttribute("data-comment-id", comment_id);
-      formclone.setAttribute("data-comment-user-id", reply_user_id);
-      formclone.classList = "comment-form col-md-12 mt-2";
-      parent_card.classList.add("active-reply");
-      parent_card.append(formclone);
+      replyToComment(e.target);
     } else if (e.target.classList.contains("comment-submit")) {
-      console.log("submit clicked");
-      let reply_target = e.target;
-      console.log(reply_target);
-      let reply_form = reply_target.closest("form")
-      let comment_id = reply_form.getAttribute("data-comment-id");
-      let reply_user_id = reply_form.getAttribute("data-comment-user-id");
-      let comment_text = reply_form.querySelector("textarea").value;
-      let parent_card = e.target.closest(".comment-wrapper");
-      parent_card.classList.remove("active-reply");
-      replyCommentAjax(comment_id, reply_user_id, parent_card, comment_text, reply_form);
+      submitComment(e.target);
     } else if (e.target.classList.contains("thumb")) {
       console.log(e.target);
       createThumbReview(e.target);
     }
   });
+
+function deletePost(el) {
+  let comment_id = el.getAttribute("data-comment-id");
+  console.log("delete:" + comment_id);
+  let parent_card = el.closest(".comment-wrapper");
+  deleteCommentAjax(comment_id, parent_card);
+}
+
+function replyToComment(el) {
+  let comment_id = el.getAttribute("data-comment-id");
+  let reply_user_id = el.getAttribute("data-comment-user-id");
+  console.log("reply user id = " + reply_user_id);
+  console.log("reply to:" + comment_id);
+  let parent_card = e.target.closest(".comment");
+  let formclone = theform.cloneNode(true);
+  formclone.setAttribute("data-comment-id", comment_id);
+  formclone.setAttribute("data-comment-user-id", reply_user_id);
+  formclone.classList = "comment-form col-md-12 mt-2";
+  parent_card.classList.add("active-reply");
+  parent_card.append(formclone);
+}
+
+function submitComment(el) {
+  let reply_form = el.closest("form")
+  let comment_id = reply_form.getAttribute("data-comment-id");
+  let reply_user_id = reply_form.getAttribute("data-comment-user-id");
+  let comment_text = reply_form.querySelector("textarea").value;
+  let parent_card = e.target.closest(".comment-wrapper");
+  parent_card.classList.remove("active-reply");
+  replyCommentAjax(comment_id, reply_user_id, parent_card, comment_text, reply_form);
+}
 
 function createThumbReview(el) {
   // needed vals: comment_id (reply btn), review-value, review-review_type
