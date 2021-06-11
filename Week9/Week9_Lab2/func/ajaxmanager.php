@@ -37,7 +37,7 @@ if(isset($_POST['review_value'])) {
   $comment_id = $_POST['comment_id'];
   $review = new Review($conn);
   $review->setReviewProperties($review_value, $review_type, $comment_id);
-  var_dump($review);
+  $review->createReview();
 }
 
 
