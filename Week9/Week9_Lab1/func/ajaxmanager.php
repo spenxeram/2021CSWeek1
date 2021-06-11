@@ -2,7 +2,6 @@
 include '../config.php';
 include '../classes/Comment.php';
 include '../classes/Reply.php';
-include '../classes/Review.php';
 if(isset($_POST['comment'])) {
   $post_id = $_POST['post_id'];
   $comment_text = $_POST['comment'];

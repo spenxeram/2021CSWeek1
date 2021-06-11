@@ -33,6 +33,7 @@ function commentAjax(comment, postid, theaction) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.onload = function() {
     if(this.status == 200) {
+      console.log(this.responseText);
       console.log(JSON.parse(this.responseText));
       outputNewComment(JSON.parse(this.responseText));
     }
