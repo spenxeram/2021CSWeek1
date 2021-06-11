@@ -101,6 +101,11 @@ function thumbAjax(review_value, review_type, comment_id, el) {
       console.log(results);
       if(results.review == "new" && results.affected_rows == 1) {
         el.classList.add("active");
+      } else if (results.review == "updated" && results.affected_rows == 1) {
+        let thumbwrapper = el.closest("nav.comment-thumb");
+        console.log(thumbwrapper);
+        thumbwrapper.querySelector(".active").classList.remove("active");
+        el.classList.add("active");
       }
     }
   }

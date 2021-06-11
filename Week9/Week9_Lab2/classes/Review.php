@@ -64,6 +64,14 @@ class Review {
     echo json_encode($response);
   }
 
+  public function getReviews() {
+    $sql = "SELECT SUM(review_value = 1) as thumbs_down, SUM(review_value = 2) as thumbs_up, comment_id FROM reviews WHERE post_id = ? GROUP BY comment_id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $this->post_id);
+    $stmt->execute();
+    $results = $stmt->get_result();
+    $this->reviews = $results->fetch_all(MYSQLI_ASSOC);
+  }
 
 
 
