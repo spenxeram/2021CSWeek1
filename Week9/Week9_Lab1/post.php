@@ -3,7 +3,6 @@ include_once 'config.php';
 include 'func/postmanager.php';
 include 'classes/Comment.php';
 include 'classes/Reply.php';
-include 'classes/Review.php';
 include 'includes/header.php';
 if(isset($_GET['id'])) {
   $post = getPost($_GET['id'], $conn);

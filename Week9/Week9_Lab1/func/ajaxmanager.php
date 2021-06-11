@@ -31,19 +31,6 @@ if(isset($_POST['reply-comment'])) {
   echo json_encode($reply->comment);
 }
 
-if(isset($_POST['review_value'])) {
-  $review_value = $_POST['review_value'];
-  $review_type = $_POST['review_type'];
-  $comment_id = $_POST['review_type'];
-  echo $review_value;
-  $post_id = $_SESSION["query_history"][3];
-  $post_id = explode("=", $post_id);
-  $review = new Review($conn, $post_id[1]);
-  $review->setReviewDetails($review_value, $review_type, $comment_id);
-  $review->createReview();
-}
-
-
 
 
 
