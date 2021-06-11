@@ -97,7 +97,11 @@ function thumbAjax(review_value, review_type, comment_id, el) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.onload = function() {
     if(this.status == 200) {
-      console.log(this.responseText);
+      let results = JSON.parse(this.responseText);
+      console.log(results);
+      if(results.review == "new" && results.affected_rows == 1) {
+        el.classList.add("active");
+      }
     }
   }
   xhr.send("review_value="+review_value+"&review_type="+review_type+"&comment_id="+comment_id);

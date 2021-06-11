@@ -44,27 +44,5 @@ class Reply extends Comment {
     $this->replies = $results->fetch_all(MYSQLI_ASSOC);
   }
 
-  public function outputReplies($parent_id) {
-    foreach ($this->replies as $reply) {
-      if($reply['comment_parent'] == $parent_id) {
-        if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $reply['UID'] || $_SESSION['user_role'] == 1) {
-          $button = "<button class='btn float-right btn-sm btn-outline-danger delete-post' data-comment-id='{$reply['CID']}'>X</button>";
-        } else {
-          $button = "";
-        }
-      $replyoutput.= "<div class='col-md-7 offset-md-1 mb-1 comment reply'><div class='card'>
-            <div class='card-header' style='background:lightgrey'>
-              <a href='user.php?id={$reply['UID']}' class='comment-user-id' data-comment-user-id='{$reply['UID']}'>{$reply['user_name']}</a> <em> replying to</em> <a href='user.php?id={$reply['UID']}' class='comment-user-id' data-comment-user-id='{$reply['UID']}'>{$reply['response_to_user']}</a> | {$reply['date_created']}
-              {$button} <button class='btn float-right btn-sm btn-outline-secondary mr-2 reply-comment' data-comment-id='{$reply['CID']}'>reply</button>
-            </div>
-            <div class='card-body'>
-              <p class='card-text'>{$reply['comment_text']}</p>
-            </div>
-          </div></div>";
-        }
-        echo $replyoutput;
-      }
-  }
-
 
 }
