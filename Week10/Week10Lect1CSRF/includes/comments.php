@@ -20,7 +20,7 @@
 <div class="row comments">
   <?php foreach ($comments->comments as $comment): ?>
     <?php
-      $comment = sanitizeArray($comment);
+    $comment = sanitizeArray($comment);
      ?>
    <?php
       if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $comment['comment_user'] || $_SESSION['user_role'] == 1) {
@@ -85,7 +85,7 @@
         <?php
           $theid = $comment['CID'];
           $thereply = array_filter($replies->replies, function($data) use ($theid) {
-            return $data['comment_parent'] === $theid;
+            return $data['comment_parent'] == $theid;
           });
         ?>
         <?php foreach ($thereply as $reply): ?>
