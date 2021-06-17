@@ -2,13 +2,8 @@
 include 'config.php';
 include 'func/postmanager.php';
 include 'func/filemanager.php';
-
-
-
 $errors = [];
 if(isset($_POST['submit'])) {
-  if($_POST['csrf'] == $_SESSION['csrf_token']) {
-  echo "csrf tokens match";
   $title = $_POST['title'];
   $body = $_POST['body'];
   // check post doesnt return true or false
@@ -18,21 +13,14 @@ if(isset($_POST['submit'])) {
   // the new image path if successful
   // it also updates the $errors[] if  there is an error
   $img_path = checkFile($_FILES, "image", $errors);
-  var_dump($_POST);
+
   // create the post if there are no $errors
   if(empty($errors) && $img_path != false) {
       // create the post
       createPost($title, $body, $img_path, $conn);
   }
-  } else {
-   echo "csrf tokens don't match";
-  }
+
 }
-
-
-$csrftoken = bin2hex(random_bytes(32));
-echo $csrftoken;
-$_SESSION['csrf_token'] = $csrftoken;
 include 'includes/header.php';
 
  ?>
@@ -59,7 +47,6 @@ include 'includes/header.php';
           <label for="body">Post Content</label>
           <textarea name="body" class="form-control" rows="8" cols="80"></textarea>
           <input type="file" name="image" class="form-control mt-1 mb-1" value="">
-          <input type="hidden" name="csrf" value="<?php echo $csrftoken; ?>">
           <button type="submit" name="submit" class="btn btn-outline-dark btn-block"> <i class="fas fa-edit"></i> Create Post</button>
         </form>
       </div>
