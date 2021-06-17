@@ -4,6 +4,7 @@ include 'func/postmanager.php';
 include 'classes/Comment.php';
 include 'classes/Reply.php';
 include 'classes/Review.php';
+include 'classes/Security.php';
 include 'includes/header.php';
 include 'func/functions.php';
 if(isset($_GET['id'])) {

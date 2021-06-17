@@ -19,9 +19,7 @@
  </div>
 <div class="row comments">
   <?php foreach ($comments->comments as $comment): ?>
-    <?php
-    $comment = sanitizeArray($comment);
-     ?>
+    <?php $comment = Security::cleanOutput($comment); ?>
    <?php
       if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $comment['comment_user'] || $_SESSION['user_role'] == 1) {
         $button = "<button class='btn float-right btn-sm btn-outline-danger delete-post' data-comment-id='{$comment['CID']}'>X</button>";
