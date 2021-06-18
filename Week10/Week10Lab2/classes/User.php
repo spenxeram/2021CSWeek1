@@ -42,9 +42,13 @@ class User {
     //#2) if user exists validate user pw against db hash
     $this->checkUserExists();
     if(!empty($this->user)) {
-
+      if(password_verify($this->user_password, $this->user['user_hash'])) {
+        $this->loginUser();
+      } else {
+        echo "Passwords don't match";
+      }
     } else {
-      // user not found
+      echo "User not found!";
     }
   }
 
@@ -53,7 +57,13 @@ class User {
   }
 
   public function loginUser() {
-
+    // create logged in use Session: id, name, role, loggedin
+    $_SESSION['user_name'] = $this->user['user_name'];
+    $_SESSION['user_id'] = $this->user['user_id'];
+    $_SESSION['user_role'] = $this->user['user_role'];
+    $_SESSION['loggedin'] = true;
+    $location = "Location: index.php?login=true";
+    header($location);
   }
 
   public function logoutUser() {
