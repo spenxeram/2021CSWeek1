@@ -21,6 +21,8 @@ if(isset($_SESSION['user_id'])) {
 
       if(empty($_GET) || isset($_GET['profile']) ) {
         include 'includes/user_profile.php';
+      } elseif ( isset($_GET['posts'])) {
+        include 'includes/user_posts.php';
       }
      ?>
 

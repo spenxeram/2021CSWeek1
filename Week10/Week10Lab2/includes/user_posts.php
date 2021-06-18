@@ -4,7 +4,7 @@ $posts = $user->getPosts();
 
 <div class="col-md-8 col-lg-9 user-nav-wrapper mt-4 container user-posts">
   <div class="row">
-
+    <h1 class="display-4">Your Posts</h1>
     <table class="table table-striped table-hover">
       <tr>
 
