@@ -11,13 +11,21 @@ class User {
   public $user = [];
   public $users = [];
   public $conn;
+  public $errors = [];
 
   public function __construct($conn) {
     $this->conn = $conn;
   }
 
   public function getUser() {
-
+    $sql = "SELECT * FROM users WHERE ID = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $this->user_id);
+    $stmt->execute();
+    $results = $stmt->get_result();
+    if($results->num_rows == 1) {
+      $this->user = $results->fetch_assoc();
+    }
   }
 
   public function checkUserExists() {
@@ -45,24 +53,60 @@ class User {
       if(password_verify($this->user_password, $this->user['user_hash'])) {
         $this->loginUser();
       } else {
-        echo "Passwords don't match";
+        $this->errors['login_password'] = "Password doesn't match!";
       }
     } else {
-      echo "User not found!";
+      $this->errors['login_username'] ="User not found!";
     }
   }
 
-  public function checkRegistration() {
+  public function checkRegistration($user_name, $user_email, $user_password, $user_password2) {
+    // assign vals to properties
+    $this->user_name = $user_name;
+    $this->user_email = $user_email;
+    $this->user_password = $user_password;
+    $this->checkUserExists();
 
+    // check if username is already taken
+    if(!empty($this->user)) {
+      $this->errors['create_username'] ="Username is already taken!";
+    }
+    // check email is valid
+    if(!filter_var($this->user_email, FILTER_VALIDATE_EMAIL)) {
+      $this->errors['create_email'] = "Invalid email!";
+    }
+    //check passwords match and are a certain length
+    if($this->user_password != $user_password2 || strlen($this->user_password) < 5) {
+      $this->errors['create_password'] = "Passwords don't match or are too short!";
+    }
+
+    if(empty($this->errors)) {
+      $this->createUser();
+    }
+
+
+  }
+
+  public function createUser() {
+    $this->user_hash = password_hash($this->user_password, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO users (user_name, user_email, user_hash) VALUES (?,?,?)";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("sss", $this->user_name, $this->user_email, $this->user_hash);
+    $stmt->execute();
+    if($stmt->affected_rows == 1) {
+      $this->user_id = $stmt->insert_id;
+      $this->getUser();
+      $this->loginUser();
+    }
   }
 
   public function loginUser() {
     // create logged in use Session: id, name, role, loggedin
     $_SESSION['user_name'] = $this->user['user_name'];
-    $_SESSION['user_id'] = $this->user['user_id'];
+    $_SESSION['user_id'] = $this->user['ID'];
     $_SESSION['user_role'] = $this->user['user_role'];
     $_SESSION['loggedin'] = true;
-    $location = "Location: index.php?login=true";
+    $location = "Location: index.php?create=true";
     header($location);
   }
 

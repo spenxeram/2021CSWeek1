@@ -1,12 +1,11 @@
-<div class="col-md-4 col-lg-3">
+<div class="col-md-4 col-lg-3 user-nav-wrapper mt-4">
   <div class="user-nav">
     <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-        The current link item
+      <a href="user.php?profile" class="list-group-item list-group-item-action">
+        Your Profile
       </a>
-      <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-      <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-      <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+      <a href="user.php?posts" class="list-group-item list-group-item-action">Your Posts</a>
+      <a href="user.php?comments" class="list-group-item list-group-item-action">Comments</a>
       <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled link item</a>
     </div>
   </div>
