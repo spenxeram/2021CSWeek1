@@ -6,6 +6,7 @@ include 'classes/Comment.php';
 include 'classes/Reply.php';
 include 'classes/Review.php';
 include 'includes/header.php';
+
 ?>
 
   <?php if (!$_SESSION['loggedin']): ?>
