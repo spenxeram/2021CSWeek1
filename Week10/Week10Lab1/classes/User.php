@@ -18,15 +18,18 @@ class User {
   public function __construct($conn) {
     $this->conn = $conn;
   }
-
-
   public function getUser() {
-    $sql = "SELECT * FROM users WHERE ID = ?";
+  }
+
+  public function checkUserExists() {
+    $sql = "SELECT * FROM users WHERE user_name = ?";
     $stmt = $this->conn->prepare($sql);
-    $stmt->bind_param("i", $this->user_id);
+    $stmt->bind_param("i", $this->user_name);
     $stmt->execute();
-    $results = $stmt->get_result();
-    $this->user = $results->fetch_assoc();
+    $result = $stmt->get_result();
+    if($result->num_rows == 1) {
+     $this->user = $result->fetch_assoc();
+   }
   }
 
   public function getUsers() {

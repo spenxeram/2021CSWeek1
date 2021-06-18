@@ -1,7 +1,13 @@
 <?php
 include 'config.php';
 include 'includes/header.php';
-
+if(isset($_POST['login'])) {
+  $user_name = $_POST['name'];
+  $user_password = $_POST['password'];
+  $user = new User($conn);
+  $user->checkLogin($user_name, $user_password);
+  var_dump($user);
+}
  ?>
 
 <div class="container mt-3">

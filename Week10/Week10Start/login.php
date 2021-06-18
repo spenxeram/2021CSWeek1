@@ -3,6 +3,14 @@ include 'config.php';
 include 'func/account.php';
 include 'includes/header.php';
 
+if(isset($_POST['login'])) {
+  $user_name = $_POST['name'];
+  $user_password = $_POST['$user_password'];
+  $user = new User($conn);
+  $user->checkLogin($user_name, $user_password);
+
+}
+
  ?>
 
 <div class="container mt-3">
