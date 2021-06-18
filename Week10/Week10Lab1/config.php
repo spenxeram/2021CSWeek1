@@ -27,12 +27,10 @@ if(!isset($_SESSION['query_history'])) {
   }
 }
 
-//Messenger::initializeMessenger();
-//$ismsg = Messenger::checkMsg();
-if (isset($ismsg)) {
-//  $messages = Messenger::outputMsg();
-//  Messenger::clearMsg();
+$ismsg = Messenger::checkMsg();
+if ($ismsg) {
+  $messages = Messenger::outputMsg();
 }
-
+Messenger::initializeMessenger();
 include 'db.php';
 ?>

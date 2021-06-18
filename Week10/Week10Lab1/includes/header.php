@@ -1,8 +1,3 @@
-<?php
-var_dump($_SESSION);
-
- ?>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -54,7 +49,7 @@ var_dump($_SESSION);
 
     <div class="container">
     <?php
-      if(isset($ismsg)) {
+      if($ismsg) {
         echo $messages;
       }
      ?>
