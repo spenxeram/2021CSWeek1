@@ -122,6 +122,15 @@ class User {
 
   }
 
+  public function getPosts() {
+    $sql "SELECT p.post_title, u.user_name, COUNT(c.ID) AS comment_count FROM posts p JOIN users u ON u.ID = p.post_author LEFT JOIN comments c ON c.comment_post = p.ID WHERE post_author = ? GROUP BY post_title";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $this->user_id);
+    $stmt->execute();
+    $results = $stmt->get_result();
+    return $results->fetch_all(MYSQLI_ASSOC);
+  }
+
 
 
 
