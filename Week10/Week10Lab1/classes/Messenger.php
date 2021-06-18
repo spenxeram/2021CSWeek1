@@ -1,5 +1,4 @@
-'<?php
-
+<?php
 class Messenger {
 
   public static function checkMsg() {
@@ -9,6 +8,12 @@ class Messenger {
       return false;
     }
   }
+
+  public static function clearMsg() {
+    $_SESSION['msg'] = [];
+    unset($_SESSION['msg']);
+  }
+
 
   public static function initializeMessenger() {
     $_SESSION['msg'] = [];

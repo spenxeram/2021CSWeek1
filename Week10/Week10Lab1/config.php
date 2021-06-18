@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'classes/Messenger.php';
 spl_autoload_register(function ($class) {
     $classlocation = 'classes/' . $class . '.php';
     if (file_exists($classlocation)) {
@@ -27,10 +28,17 @@ if(!isset($_SESSION['query_history'])) {
   }
 }
 
+if(!isset($_SESSION['msg'])) {
+  Messenger::initializeMessenger();
+}
 $ismsg = Messenger::checkMsg();
 if ($ismsg) {
   $messages = Messenger::outputMsg();
+  Messenger::clearMsg();
+  Messenger::initializeMessenger();
 }
-Messenger::initializeMessenger();
+
+
+
 include 'db.php';
 ?>

@@ -1,6 +1,5 @@
 <?php
 include 'config.php';
-include 'func/account.php';
 include 'includes/header.php';
 
  ?>

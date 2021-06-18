@@ -1,7 +1,22 @@
 <?php
 include 'config.php';
-include 'func/account.php';
 include 'includes/header.php';
+if(isset($_POST['login'])) {
+  $user_name = $_POST['name'];
+  $user_pw = $_POST['password'];
+  $user = new User($conn);
+  $user->checkLogin($user_name, $user_pw);
+  var_dump($user->user);
+}
+
+if(isset($_POST['create'])) {
+  $user_name = $_POST['username'];
+  $user_email = $_POST['email'];
+  $user_password = $_POST['password1'];
+  $user_password2 = $_POST['password2'];
+  $user = new User($conn);
+  $user->checkRegistration($user_name, $user_email, $user_password, $user_password2);
+}
 
  ?>
 
