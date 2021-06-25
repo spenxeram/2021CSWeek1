@@ -7,6 +7,11 @@ if (isset($_POST['new-task'])) {
   $task->createTask($task_text);
 }
 
+if($_SESSION['loggedin']) {
+  $tasks = new Task($conn);
+  $tasks->getTasks($_SESSION['user_id']);
+}
+
  ?>
 
  <div class="container">
@@ -50,10 +55,44 @@ if (isset($_POST['new-task'])) {
                   <input type="text" name="task" class="form-control mt-4 mb-4" placeholder="Input new task here....">
                   <button type="submit" name="new-task" class="btn btn-outline-primary btn-block"><i class="fa fa-plus"></i> Add New Task</button>
                 </form>
-
               </div>
           </div>
         </div>
+       </div>
+       <div class="row">
+         <?php if (empty($tasks->tasks)): ?>
+           <h1 class="display-4">No tasks found for this user... :(</h1>
+         <?php else: ?>
+           <div class="col-md-6 offset-md-3">
+
+           <table class="table table-striped">
+             <thead class="thead-dark">
+               <tr>
+                 <th>Task</th>
+                 <th>Action</th>
+                 <th></th>
+               </tr>
+             </thead>
+             <tbody>
+               <?php foreach ($tasks->tasks as $task): ?>
+                 <tr>
+                   <td><?php echo htmlspecialchars($task['task_text']); ?></td>
+                   <td>
+                    <button type="button" name="button" class="btn btn-outline-success btn-sm completed" data-task-id="<?php echo $task['ID']; ?>">Done</button>
+                   </td>
+                   <td>
+                     <form class="" action="index.php" method="post">
+                       <input type="hidden" name="task-id" value="<?php echo $task['ID']; ?>">
+                       <button type="submit" name="delete" class="btn btn-sm btn-outline-danger">Delete</button>
+                     </form>
+                   </td>
+                 </tr>
+               <?php endforeach; ?>
+
+             </tbody>
+           </table>
+         </div>
+         <?php endif; ?>
        </div>
      <?php endif; ?>
 
