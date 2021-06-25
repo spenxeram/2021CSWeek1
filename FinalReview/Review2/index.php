@@ -34,7 +34,7 @@ include 'includes/header.php';
        </div>
       </div>
      <?php else: ?>
-       CREATE TASK
+       aDD TASKS
      <?php endif; ?>
 
  </div>
