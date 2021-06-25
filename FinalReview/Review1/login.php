@@ -1,5 +1,14 @@
 <?php
 include 'includes/header.php';
+include 'classes/User.php';
+if(isset($_POST['login'])) {
+  $user_name = $_POST['username'];
+  $user_password = $_POST['password'];
+  $user = new User($conn);
+  $user->checkLogin($user_name, $user_password);
+  var_dump($user);
+}
+
  ?>
 
  <div class="container mt-5">
