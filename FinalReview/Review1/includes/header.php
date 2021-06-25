@@ -33,7 +33,11 @@ include 'db.php';
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"> <i class="fa fa-user"></i> Login/Create Account</a>
+                        <?php if ($_SESSION['loggedin']): ?>
+                          <a class="nav-link" href="#"> <i class="fa fa-user"></i> <?php echo $_SESSION['user_name']; ?></a>
+                        <?php else: ?>
+                        <a class="nav-link" href="login.php"> <i class="fa fa-user"></i> Login/Create Account</a>
+                        <?php endif; ?>
                     </li>
             </div>
         </div>

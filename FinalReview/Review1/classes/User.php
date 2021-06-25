@@ -31,8 +31,8 @@ class User {
     $this->user_name = $user_name;
     $this->user_password = $password;
     $this->getUsername();
-    if(!empty($this->user_name)) {
-      if(password_verify($this->user_password, $this->user['user_hash'] )) {
+    if(!empty($this->user)) {
+      if(password_verify($this->user_password, $this->user['user_hash'])) {
         $this->login();
       } else {
         $this->errors['login_password'] = "Password fail!";
@@ -42,7 +42,10 @@ class User {
     }
   }
   public function login() {
-
+    $_SESSION['user_id'] = $this->user['ID'];
+    $_SESSION['user_name'] = $this->user['user_name'];
+    $_SESSION['loggedin'] = true;
+    header("Location: index.php?login");
   }
 
   public function checkCreate($user_name, $user_email, $password, $confirm_password) {

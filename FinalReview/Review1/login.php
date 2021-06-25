@@ -6,12 +6,19 @@ if(isset($_POST['login'])) {
   $user_password = $_POST['password'];
   $user = new User($conn);
   $user->checkLogin($user_name, $user_password);
-  var_dump($user);
+  $errors = $user->errors;
 }
 
  ?>
 
  <div class="container mt-5">
+   <?php if (isset($errors) && !empty($errors)): ?>
+     <div class="alert alert-danger" role="alert">
+       <?php foreach ($errors as $error): ?>
+         <?php echo $error . "</br>"; ?>
+       <?php endforeach; ?>
+     </div>
+   <?php endif; ?>
    <div class="row">
      <div class="col-md-6">
        <h3><i class="fa fa-plus"></i> Create Account</h3>
