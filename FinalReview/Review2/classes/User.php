@@ -49,11 +49,39 @@ class User {
   }
 
   public function checkCreate($user_name, $user_email, $password, $confirm_password) {
+    $this->user_name = $user_name;
+    $this->user_email = $user_email;
+    $this->user_password = $password;
+    $this->getUsername();
+    // check user name is available
+    if(!empty($this->user)) {
+      $this->errors['create_username'] = "This username is taken!";
+    }
+    // validate email
+    if(!filter_var($this->user_email, FILTER_VALIDATE_EMAIL)) {
+      $this->errors['create_email'] = "This email is invalid!";
+    }
+    // check pw
+    if(strlen($this->user_password) < 5 || $this->user_password != $confirm_password) {
+      $this->errors['create_password'] = "Passwords must match and be more than 5 characters in length!";
+    }
+    //create new user and login
+    if(empty($this->errors)) {
+      $this->createAccount();
+    }
 
   }
 
   public function createAccount() {
-
+    $this->user_hash = password_hash($this->user_password, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO users (user_name, user_email, user_hash) VALUES (?,?,?)";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("sss", $this->user_name, $this->user_email, $this->user_hash);
+    $stmt->execute();
+    if($stmt->affected_rows == 1) {
+      $this->getUsername();
+      $this->login();
+    }
   }
 
   public static function logout() {

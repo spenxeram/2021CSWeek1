@@ -3,8 +3,6 @@ session_start();
 if(!isset($_SESSION['loggedin'])) {
   $_SESSION['loggedin'] = false;
 }
-
-echo __DIR__;
 include 'db.php';
  ?>
 

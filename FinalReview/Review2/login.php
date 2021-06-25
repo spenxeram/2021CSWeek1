@@ -9,6 +9,16 @@ if(isset($_POST['login'])) {
   $errors = $user->errors;
 }
 
+if(isset($_POST['create-account'])) {
+  $user_name = $_POST['username'];
+  $user_email = $_POST['email'];
+  $user_password = $_POST['password'];
+  $user_confirm_password = $_POST['confirm-password'];
+  $user = new User($conn);
+  $user->checkCreate($user_name, $user_email, $user_password, $user_confirm_password);
+  $errors = $user->errors;
+}
+
  ?>
 
  <div class="container mt-5">
