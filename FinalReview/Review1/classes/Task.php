@@ -13,7 +13,15 @@ class Task {
   }
 
   public function getTasks($user_id) {
-
+    $this->user_id = $user_id;
+    $sql = "SELECT * FROM tasks WHERE user_id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $this->user_id);
+    $stmt->execute();
+    $results = $stmt->get_result();
+    if($results->num_rows >= 1) {
+      $this->tasks = $results->fetch_all(MYSQLI_ASSOC);
+    }
   }
 
   public function createTask($task) {
