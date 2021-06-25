@@ -40,6 +40,8 @@ include 'includes/header.php';
 
 
  <?php
+ $password = "itec2021";
+ echo password_hash($password, PASSWORD_DEFAULT);
  var_dump($_SERVER);
  include 'includes/footer.php';
   ?>
