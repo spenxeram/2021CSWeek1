@@ -7,6 +7,12 @@ if (isset($_POST['new-task'])) {
   $task->createTask($task_text);
 }
 
+if (isset($_POST['delete'])) {
+  $task_id = $_POST['task-id'];
+  $task = new Task($conn);
+  $task->deleteTask($task_id);
+}
+
 if($_SESSION['loggedin']) {
   $tasks = new Task($conn);
   $tasks->getTasks($_SESSION['user_id']);
@@ -26,6 +32,10 @@ if($_SESSION['loggedin']) {
    <?php elseif(isset($_GET['error'])): ?>
      <div class="alert alert-danger mt-3" role="alert">
        There was a problem adding your task...
+     </div>
+   <?php elseif(isset($_GET['delete'])): ?>
+     <div class="alert alert-warning mt-3" role="alert">
+       Task was deleted...
      </div>
    <?php endif; ?>
 
