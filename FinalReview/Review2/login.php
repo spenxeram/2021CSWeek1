@@ -22,7 +22,20 @@ if(isset($_POST['login'])) {
    <div class="row">
      <div class="col-md-6">
        <h3><i class="fa fa-plus"></i> Create Account</h3>
-       
+       <form class="" action="login.php" method="post">
+         <label for="username">Username</label>
+         <input type="text" name="username" class="form-control" placeholder="Enter your name...">
+         <p class="error error-username"></p>
+         <label for="email">Email</label>
+         <input type="email" name="email" class="form-control">
+         <p class="error error-email"></p>
+         <label for="password">Password</label>
+         <input type="password" name="password" class="form-control">
+         <label for="confirm-password">Confrim Password</label>
+         <input type="password" name="confirm-password" class="form-control" placeholder="...">
+         <p class="error error-password"></p>
+         <button type="submit" class="btn btn-primary btn-block" name="create-account"><i class="fa fa-plus"></i> Create Account</button>
+       </form>
      </div>
      <div class="col-md-6">
        <h3><i class="fa fa-user"></i> Login</h3>

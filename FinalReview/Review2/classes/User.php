@@ -56,8 +56,10 @@ class User {
 
   }
 
-  public function logout() {
-
+  public static function logout() {
+    $_SESSION = [];
+    session_destroy();
+    header("Location: index.php");
   }
 
 }
