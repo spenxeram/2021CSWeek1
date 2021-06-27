@@ -18,7 +18,7 @@ include 'db.php';
     <style media="screen">
       .finished {
         text-decoration: line-through;
-        color: grey;}
+        color: lightgrey;}
     </style>
   </head>
   <body>

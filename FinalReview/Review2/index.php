@@ -55,10 +55,10 @@ if($_SESSION['loggedin']) {
       </div>
      <?php else: ?>
        <div class="row">
-        <div class="col-md-6 offset-md-3 mt-5 mb-5">
+        <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3 mt-3 mb-3">
           <div class="card" >
               <div class="card-header">
-                  Add a new task
+                  <h3>Add a new task</h3>
               </div>
               <div class="card-body">
                 <form class="" action="index.php" method="post">
@@ -71,9 +71,9 @@ if($_SESSION['loggedin']) {
        </div>
        <div class="row">
          <?php if (empty($tasks->tasks)): ?>
-           <h1 class="display-4">No tasks found for this user... :(</h1>
+           <h1 class="display-4">No tasks found for this user...</h1>
          <?php else: ?>
-           <div class="col-md-6 offset-md-3">
+           <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
 
            <table class="table table-striped">
              <thead class="thead-dark">
@@ -86,7 +86,9 @@ if($_SESSION['loggedin']) {
              <tbody>
                <?php foreach ($tasks->tasks as $task): ?>
                  <tr>
-                   <td><?php echo htmlspecialchars($task['task_text']); ?></td>
+                   <td <?php if ($task['task_status'] == 1): ?>
+                     class="finished"
+                   <?php endif; ?>><?php echo htmlspecialchars($task['task_text']); ?></td>
                    <td>
                     <button type="button" name="button" class="btn btn-outline-success btn-sm completed" data-task-id="<?php echo $task['ID']; ?>">Done</button>
                    </td>
@@ -98,7 +100,6 @@ if($_SESSION['loggedin']) {
                    </td>
                  </tr>
                <?php endforeach; ?>
-
              </tbody>
            </table>
          </div>

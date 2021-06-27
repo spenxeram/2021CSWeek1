@@ -3,7 +3,6 @@ let tasktable = document.querySelector("table");
 tasktable.addEventListener("click", function(e) {
   console.log(e.target);
   if(e.target.classList.contains("completed")) {
-    console.log("compted");
     completeTask(e.target);
   }
 })
@@ -16,7 +15,8 @@ function completeTask(el) {
   xhr.onload = function() {
     if(this.status == 200) {
       console.log(this.responseText);
-      let task = el.closest("tr").firstChild.classList.add("finished");
+      let task = el.closest("tr").firstElementChild;
+      task.classList.add('finished');
     }
   }
   xhr.send("task_id="+task_id);

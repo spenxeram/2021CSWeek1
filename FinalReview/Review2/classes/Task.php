@@ -27,7 +27,7 @@ class Task {
 
   public function getTasks($user_id) {
     $this->user_id = $user_id;
-    $sql = "SELECT * FROM tasks WHERE task_user_id = ?";
+    $sql = "SELECT * FROM tasks WHERE task_user_id = ? ORDER BY task_status ASC, date_created DESC";
     $stmt = $this->conn->prepare($sql);
     $stmt->bind_param("i", $this->user_id);
     $stmt->execute();
@@ -49,24 +49,11 @@ class Task {
   }
 
   public function completeTask($id) {
-    $this->task_id = $id;
-    $sql = "UPDATE tasks SET task_status = 1 WHERE tasks.ID =?";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bind_param("i", $this->task_id);
-    $stmt->execute();
+
   }
 
-  public function deleteTask($task_id) {
-    $this->getTask($task_id);
-    if($this->task['task_user_id'] == $_SESSION['user_id']) {
-      $sql = "DELETE FROM tasks WHERE ID = ?";
-      $stmt = $this->conn->prepare($sql);
-      $stmt->bind_param("i", $this->task_id);
-      $stmt->execute();
-      if($stmt->affected_rows == 1) {
-        header("Location: index.php?delete");
-      }
-    }
+  public function deleteTask() {
+
   }
 
 }
