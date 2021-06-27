@@ -49,11 +49,31 @@ class Task {
   }
 
   public function completeTask($id) {
-
+    $this->getTask($id);
+    if($this->task['task_user_id'] == $_SESSION['user_id']) {
+      $sql = "UPDATE tasks SET task_status = 1 WHERE ID = ?";
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bind_param("i", $this->task_id);
+      $stmt->execute();
+      if($stmt->affected_rows == 1) {
+        echo "success";
+      }
+    }
   }
 
-  public function deleteTask() {
-
+  public function deleteTask($id) {
+    $this->getTask($id);
+    if($this->task['task_user_id'] == $_SESSION['user_id']) {
+      $sql = "DELETE FROM tasks WHERE ID = ?";
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bind_param("i", $this->task_id);
+      $stmt->execute();
+      if($stmt->affected_rows == 1) {
+        header("Location: index.php?delete");
+      }
+    } else {
+      header("Location: index.php?error");
+    }
   }
 
 }

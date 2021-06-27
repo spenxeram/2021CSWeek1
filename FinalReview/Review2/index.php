@@ -31,7 +31,7 @@ if($_SESSION['loggedin']) {
      </div>
    <?php elseif(isset($_GET['error'])): ?>
      <div class="alert alert-danger mt-3" role="alert">
-       There was a problem adding your task...
+       There was a problem adding/deleting your task...
      </div>
    <?php elseif(isset($_GET['delete'])): ?>
      <div class="alert alert-warning mt-3" role="alert">
