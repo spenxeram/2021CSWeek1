@@ -1,6 +1,4 @@
 <?php
-
-
 class Student extends User {
 
   public $major;
@@ -17,7 +15,7 @@ class Student extends User {
   }
 
   public function enrollClass() {
-    
+
   }
 
   public function dropClass() {
