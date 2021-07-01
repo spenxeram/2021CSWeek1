@@ -29,7 +29,7 @@ include 'db.php';
     }
     footer {
       background: #03a9f4;
-      padding: 10%;
+      padding: 5%;
       text-align: center;
       color: white;
     }
